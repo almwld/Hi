@@ -6,6 +6,7 @@ import 'package:sehatak/presentation/screens/chat/chat_screen.dart';
 import 'package:sehatak/presentation/screens/pharmacy/pharmacy_screen.dart';
 import 'package:sehatak/presentation/screens/profile/profile_screen.dart';
 import 'package:sehatak/presentation/screens/patient/patient_dashboard.dart';
+import 'package:sehatak/presentation/screens/more/more_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,8 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const _HomeTab(),
-    const DoctorsListScreen(),
-    const PatientDashboard(),
+    const ChatScreen(),
+    const MoreScreen(),
     const PharmacyScreen(),
     const ProfileScreen(),
   ];
@@ -29,7 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: _screens[_currentIndex],
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor, boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10, offset: const Offset(0, -2))]),
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10, offset: const Offset(0, -2))],
+        ),
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: (i) => setState(() => _currentIndex = i),
@@ -39,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'Home'),
             BottomNavigationBarItem(icon: Icon(Icons.chat_rounded), label: 'Chat'),
-            BottomNavigationBarItem(icon: Icon(Icons.favorite_rounded), label: 'Health'),
+            BottomNavigationBarItem(icon: Icon(Icons.grid_view_rounded), label: 'More'),
             BottomNavigationBarItem(icon: Icon(Icons.local_pharmacy_rounded), label: 'Pharmacy'),
             BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: 'Profile'),
           ],
@@ -60,7 +64,6 @@ class _HomeTab extends StatelessWidget {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const SearchBar(hint: 'Search services, doctors, articles...'),
           const SizedBox(height: 20),
-          // بطاقة ترحيبية
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(20),
@@ -74,7 +77,6 @@ class _HomeTab extends StatelessWidget {
             ]),
           ),
           const SizedBox(height: 24),
-          // أفضل الأطباء
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text('Top Doctors', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)), TextButton(onPressed: () {}, child: const Text('View All >'))]),
           const SizedBox(height: 8),
           DoctorCard(name: 'Dr. Hassan Raza', specialty: 'General Physician', experience: '8+ Years Experience', rating: 4.8, reviews: 235, onTap: () {}),
@@ -83,14 +85,12 @@ class _HomeTab extends StatelessWidget {
           const SizedBox(height: 8),
           DoctorCard(name: 'Dr. Usman Khan', specialty: 'Cardiologist', experience: '10+ Years Experience', rating: 4.7, reviews: 312, onTap: () {}),
           const SizedBox(height: 24),
-          // خدمات سريعة
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             _quickService(context, Icons.local_pharmacy, 'Pharmacy', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PharmacyScreen()))),
             _quickService(context, Icons.emergency, 'Emergency', () {}),
             _quickService(context, Icons.video_call, 'Consultations', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChatScreen()))),
           ]),
           const SizedBox(height: 24),
-          // التاريخ الطبي
           Text('Medical History', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
           _historyItem(context, 'Hypertension', 'Diagnosed on 15 Mar 2023', AppColors.error),
