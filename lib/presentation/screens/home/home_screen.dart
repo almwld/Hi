@@ -62,7 +62,7 @@ class _HomeTab extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const SearchBar(hint: 'Search services, doctors, articles...'),
+          const CustomSearchBar(hint: 'Search services, doctors, articles...'),
           const SizedBox(height: 20),
           Container(
             width: double.infinity,

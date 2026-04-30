@@ -12,7 +12,7 @@ class PharmacyScreen extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const SearchBar(hint: 'Search medicines, brands, and more...'),
+          const CustomSearchBar(hint: 'Search medicines, brands, and more...'),
           const SizedBox(height: 8),
           Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.05), borderRadius: BorderRadius.circular(10)), child: const Row(children: [Icon(Icons.location_on, color: AppColors.primary, size: 16), SizedBox(width: 4), Text('Deliver to: Home - Block 7, Clifton, Karachi', style: TextStyle(fontSize: 11)), Spacer(), Icon(Icons.edit, size: 14, color: AppColors.grey)])),
           const SizedBox(height: 16),

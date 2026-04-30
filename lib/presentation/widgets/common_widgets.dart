@@ -76,7 +76,7 @@ class MedicineCard extends StatelessWidget {
 }
 
 // شريط بحث
-class SearchBar extends StatelessWidget {
+class CustomSearchBar extends StatelessWidget {
   final String hint;
   const SearchBar({this.hint = 'Search...', super.key});
   @override
