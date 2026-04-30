@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:sehatak/core/constants/app_colors.dart';
 
-// بطاقة طبيب
 class DoctorCard extends StatelessWidget {
-  final String name, specialty, experience, imageUrl;
+  final String name, specialty, experience;
   final double rating;
   final int reviews;
   final VoidCallback onTap;
-  const DoctorCard({required this.name, required this.specialty, required this.experience, this.imageUrl = '', this.rating = 4.5, this.reviews = 100, required this.onTap, super.key});
+  const DoctorCard({
+    super.key,
+    required this.name,
+    required this.specialty,
+    required this.experience,
+    this.rating = 4.5,
+    this.reviews = 100,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +48,17 @@ class DoctorCard extends StatelessWidget {
   }
 }
 
-// بطاقة دواء
 class MedicineCard extends StatelessWidget {
-  final String name, description, price, discount, imageUrl;
+  final String name, description, price, discount;
   final VoidCallback onAddToCart;
-  const MedicineCard({required this.name, required this.description, required this.price, this.discount = '', this.imageUrl = '', required this.onAddToCart, super.key});
+  const MedicineCard({
+    super.key,
+    required this.name,
+    required this.description,
+    required this.price,
+    this.discount = '',
+    required this.onAddToCart,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +88,10 @@ class MedicineCard extends StatelessWidget {
   }
 }
 
-// شريط بحث
 class CustomSearchBar extends StatelessWidget {
   final String hint;
-  const SearchBar({this.hint = 'Search...', super.key});
+  const CustomSearchBar({super.key, this.hint = 'Search...'});
+
   @override
   Widget build(BuildContext context) {
     return TextField(
