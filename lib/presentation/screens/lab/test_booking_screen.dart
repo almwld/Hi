@@ -56,7 +56,7 @@ class _TestBookingScreenState extends State<TestBookingScreen> {
             Text(AppStrings.selectDate, style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
             const SizedBox(height: 12),
             Container(
-              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.3), borderRadius: BorderRadius.circular(16)),
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3), borderRadius: BorderRadius.circular(16)),
               child: TableCalendar(
                 firstDay: DateTime.now(),
                 lastDay: DateTime.now().add(const Duration(days: 30)),

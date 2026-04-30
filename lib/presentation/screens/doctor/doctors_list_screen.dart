@@ -143,7 +143,7 @@ class _DoctorsListScreenState extends State<DoctorsListScreen> {
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(AppDimensions.paddingL),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.3),
+          color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: AppColors.outlineVariant.withOpacity(0.5)),
         ),

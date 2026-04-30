@@ -36,7 +36,7 @@ class NotificationsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(AppDimensions.paddingL),
             decoration: BoxDecoration(
               color: (notification['read'] as bool)
-                  ? Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.3)
+                  ? Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3)
                   : (notification['color'] as Color).withOpacity(0.05),
               borderRadius: BorderRadius.circular(16),
               border: Border.all(

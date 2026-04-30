@@ -129,7 +129,7 @@ class _DoctorBookingScreenState extends State<DoctorBookingScreen> {
             const SizedBox(height: 12),
             Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: TableCalendar(

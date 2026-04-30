@@ -31,7 +31,7 @@ class PaymentMethods extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.3),
+        color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: isDefault ? AppColors.primary : AppColors.outlineVariant.withOpacity(0.5), width: isDefault ? 2 : 1),
       ),
