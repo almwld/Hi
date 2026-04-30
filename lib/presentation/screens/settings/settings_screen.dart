@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/constants/app_dimensions.dart';
-import '../../bloc/theme_bloc/theme_bloc.dart';
 import '../auth/login_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
