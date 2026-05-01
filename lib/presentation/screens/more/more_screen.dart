@@ -124,7 +124,7 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.emoji_events, 'تحديات صحية', 'اربح نقاطاً وجوائز', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthChallengesScreen()))),
           _menuItem(context, Icons.monitor_heart, 'تتبع السكر', 'قراءات الجلوكوز', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GlucoseTrackerScreen()))),
           _menuItem(context, Icons.psychology, 'مقياس التوتر', 'قِس مستوى توترك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StressMeterScreen()))),
-          _menuItem(context, Icons.dentistry, 'طب الأسنان', 'خدمات ونصائح للأسنان', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DentalCareScreen()))),
+          _menuItem(context, Icons.diamond, 'طب الأسنان', 'خدمات ونصائح للأسنان', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DentalCareScreen()))),
           _menuItem(context, Icons.smart_toy, 'العيادة الذكية', 'AI تحليل أعراضك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SmartClinicScreen()))),
           _menuItem(context, Icons.visibility, 'طب العيون', 'فحوصات ونصائح للعيون', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const EyeCareScreen()))),
           _menuItem(context, Icons.notifications_active, 'تذكير متقدم', 'جرعات وإعادة تعبئة', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AdvancedReminderScreen()))),

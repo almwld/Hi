@@ -9,10 +9,10 @@ class HospitalCompareScreen extends StatefulWidget {
 
 class _HospitalCompareScreenState extends State<HospitalCompareScreen> {
   final List<Map<String, dynamic>> _hospitals = const [
-    {'name': 'مستشفى الثورة', 'beds': '500', 'doctors': '200', 'emergency': true, 'icu': true, 'ambulance': true, 'rating': 4.5, 'price': '$$$', 'city': 'صنعاء', 'image': '🏥'},
-    {'name': 'مستشفى الكويت', 'beds': '400', 'doctors': '180', 'emergency': true, 'icu': true, 'ambulance': true, 'rating': 4.7, 'price': '$$', 'city': 'صنعاء', 'image': '🏥'},
-    {'name': 'مستشفى آزال', 'beds': '150', 'doctors': '80', 'emergency': true, 'icu': false, 'ambulance': false, 'rating': 4.2, 'price': '$', 'city': 'صنعاء', 'image': '🏥'},
-    {'name': 'المستشفى العسكري', 'beds': '600', 'doctors': '250', 'emergency': true, 'icu': true, 'ambulance': true, 'rating': 4.8, 'price': '$$', 'city': 'صنعاء', 'image': '🏥'},
+    {'name': 'مستشفى الثورة', 'beds': '500', 'doctors': '200', 'emergency': true, 'icu': true, 'ambulance': true, 'rating': 4.5, 'price': 'مرتفع', 'city': 'صنعاء', 'image': '🏥'},
+    {'name': 'مستشفى الكويت', 'beds': '400', 'doctors': '180', 'emergency': true, 'icu': true, 'ambulance': true, 'rating': 4.7, 'price': 'متوسط', 'city': 'صنعاء', 'image': '🏥'},
+    {'name': 'مستشفى آزال', 'beds': '150', 'doctors': '80', 'emergency': true, 'icu': false, 'ambulance': false, 'rating': 4.2, 'price': 'منخفض', 'city': 'صنعاء', 'image': '🏥'},
+    {'name': 'المستشفى العسكري', 'beds': '600', 'doctors': '250', 'emergency': true, 'icu': true, 'ambulance': true, 'rating': 4.8, 'price': 'متوسط', 'city': 'صنعاء', 'image': '🏥'},
   ];
 
   Set<int> _selectedIndices = {};
