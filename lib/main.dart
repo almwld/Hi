@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'presentation/screens/auth/splash_screen.dart';
 import 'core/themes/theme_manager.dart';
+import 'presentation/bloc/theme_bloc/theme_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // تفعيل RTL
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -18,20 +19,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'صحتك',
-      debugShowCheckedModeBanner: false,
-      // تفعيل الاتجاه من اليمين لليسار
-      builder: (context, child) {
-        return Directionality(
-          textDirection: TextDirection.rtl,
-          child: child!,
-        );
-      },
-      theme: ThemeManager.lightTheme,
-      darkTheme: ThemeManager.darkTheme,
-      themeMode: ThemeMode.system,
-      home: const SplashScreen(),
+    return BlocProvider(
+      create: (_) => ThemeBloc(),
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          return MaterialApp(
+            title: 'صحتك',
+            debugShowCheckedModeBanner: false,
+            builder: (context, child) {
+              return Directionality(
+                textDirection: TextDirection.rtl,
+                child: child!,
+              );
+            },
+            theme: ThemeManager.lightTheme,
+            darkTheme: ThemeManager.darkTheme,
+            themeMode: state is ThemeLoadedState ? state.themeMode : ThemeMode.light,
+            home: const SplashScreen(),
+          );
+        },
+      ),
     );
   }
 }

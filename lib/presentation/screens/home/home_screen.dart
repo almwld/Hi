@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/core/constants/app_colors.dart';
 import 'package:sehatak/presentation/widgets/common_widgets.dart';
 import 'package:sehatak/presentation/screens/doctor/doctors_list_screen.dart';
-import 'package:sehatak/presentation/screens/consultation/consultation_screen.dart';
 import 'package:sehatak/presentation/screens/more/more_screen.dart';
-import 'package:sehatak/presentation/screens/pharmacy/pharmacy_screen.dart';
-import 'package:sehatak/presentation/screens/profile/profile_screen.dart';
+import 'package:sehatak/presentation/bloc/theme_bloc/theme_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -54,14 +53,34 @@ class _HomeTab extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Row(children: [Text('👋'), SizedBox(width: 8), Text('صباح الخير، أحمد')]),
-        actions: [IconButton(icon: const Icon(Icons.notifications_outlined), onPressed: () {})],
+        actions: [
+          // زر تبديل الوضع الليلي/النهاري
+          BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, state) {
+              bool isDark = false;
+              if (state is ThemeLoadedState) {
+                isDark = state.themeMode == ThemeMode.dark;
+              }
+              return IconButton(
+                icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+                onPressed: () {
+                  context.read<ThemeBloc>().add(SetThemeEvent(!isDark));
+                },
+                tooltip: isDark ? 'الوضع النهاري' : 'الوضع الليلي',
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(14),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const CustomSearchBar(hint: 'بحث عن خدمات، أطباء، مقالات...'),
           const SizedBox(height: 18),
-          // بطاقة ترحيبية
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(18),
@@ -75,7 +94,6 @@ class _HomeTab extends StatelessWidget {
             ]),
           ),
           const SizedBox(height: 22),
-          // أفضل الأطباء
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text('أفضل الأطباء', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
             TextButton(onPressed: () {}, child: const Text('عرض الكل ›')),
@@ -87,7 +105,6 @@ class _HomeTab extends StatelessWidget {
           const SizedBox(height: 8),
           DoctorCard(name: 'د. عثمان خان', specialty: 'طبيب قلب', experience: 'خبرة 10+ سنوات', rating: 4.7, reviews: 312, onTap: () {}),
           const SizedBox(height: 22),
-          // خدمات سريعة
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             _quickService(context, Icons.local_pharmacy, 'الصيدلية', () {}),
             _quickService(context, Icons.emergency, 'الطوارئ', () {}),
@@ -95,7 +112,6 @@ class _HomeTab extends StatelessWidget {
             _quickService(context, Icons.science, 'التحاليل', () {}),
           ]),
           const SizedBox(height: 22),
-          // التاريخ الطبي
           Text('السجل الطبي', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
           _historyItem(context, 'ارتفاع ضغط الدم', 'تم التشخيص: 15 مارس 2023', AppColors.error),
@@ -133,7 +149,6 @@ class _HomeTab extends StatelessWidget {
   }
 }
 
-// عناصر نائبة للشاشات اللي في الشريط السفلي
 class PatientAppointmentsPlaceholder extends StatelessWidget {
   const PatientAppointmentsPlaceholder({super.key});
   @override
