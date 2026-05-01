@@ -1,3 +1,9 @@
+import 'package:sehatak/presentation/screens/sleep_tracker/sleep_tracker_screen.dart';
+import 'package:sehatak/presentation/screens/step_counter/step_counter_screen.dart';
+import 'package:sehatak/presentation/screens/health_tools/heart_rate_screen.dart';
+import 'package:sehatak/presentation/screens/health_challenges/health_challenges_screen.dart';
+import 'package:sehatak/presentation/screens/glucose_tracker/glucose_tracker_screen.dart';
+import 'package:sehatak/presentation/screens/stress_meter/stress_meter_screen.dart';
 import 'package:sehatak/presentation/screens/due_date/due_date_calculator_screen.dart';
 import 'package:sehatak/presentation/screens/drug_dictionary/drug_dictionary_screen.dart';
 import 'package:sehatak/presentation/screens/water_reminder/water_reminder_screen.dart';
@@ -87,6 +93,12 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.medication_liquid, 'قاموس الأدوية', 'معلومات 12 دواء', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DrugDictionaryScreen()))),
           _menuItem(context, Icons.water_drop, 'تذكير الماء', 'اشرب 8 أكواب يومياً', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WaterReminderScreen()))),
           _menuItem(context, Icons.description, 'تقارير طبية', '7 تقارير مخزنة', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MedicalReportsScreen()))),
+          _menuItem(context, Icons.bedtime, 'تتبع النوم', 'جودة ومدة نومك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SleepTrackerScreen()))),
+          _menuItem(context, Icons.directions_walk, 'عداد الخطوات', 'خطواتك اليومية', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StepCounterScreen()))),
+          _menuItem(context, Icons.favorite, 'معدل القلب', 'نبضات القلب والتمارين', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HeartRateScreen()))),
+          _menuItem(context, Icons.emoji_events, 'تحديات صحية', 'اربح نقاطاً وجوائز', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthChallengesScreen()))),
+          _menuItem(context, Icons.monitor_heart, 'تتبع السكر', 'قراءات الجلوكوز', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GlucoseTrackerScreen()))),
+          _menuItem(context, Icons.psychology, 'مقياس التوتر', 'قِس مستوى توترك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const StressMeterScreen()))),
           Text('عام', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           _menuItem(context, Icons.notifications_active, 'الإشعارات', 'تنبيهاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()))),
