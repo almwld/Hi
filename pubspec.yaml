@@ -7,10 +7,6 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
-  flutter_map: ^7.0.2
-  latlong2: ^0.9.1
-  geolocator: ^13.0.2
-  geocoding: ^3.0.0
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.6
@@ -35,7 +31,6 @@ dependencies:
   share_plus: ^7.2.1
   local_auth: ^2.1.8
   flutter_local_notifications: ^16.3.0
-  geolocator: ^10.1.0
   google_maps_flutter: ^2.5.0
   shimmer: ^3.0.0
   cached_network_image: ^3.3.1
@@ -52,13 +47,12 @@ dependencies:
   firebase_messaging: ^14.7.10
   firebase_analytics: ^10.8.0
   firebase_crashlytics: ^3.4.9
-
-
-dev_dependencies:
   flutter_map: ^7.0.2
   latlong2: ^0.9.1
-  geolocator: ^13.0.2
+  geolocator: ^10.1.0
   geocoding: ^3.0.0
+
+dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.1
