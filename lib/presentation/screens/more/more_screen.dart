@@ -1,3 +1,4 @@
+import 'package:sehatak/presentation/screens/edit_profile/edit_profile_screen.dart';
 import 'package:sehatak/presentation/screens/risk_calculator/risk_calculator_screen.dart';
 import 'package:sehatak/presentation/screens/diet_plan/diet_plan_screen.dart';
 import 'package:sehatak/presentation/screens/checkup_reminder/checkup_reminder_screen.dart';
@@ -185,6 +186,7 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.assessment, 'حاسبة الخطر', 'خطر الأمراض', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const RiskCalculatorScreen()))),
           _menuItem(context, Icons.restaurant_menu, 'خطة غذائية', 'حمية مخصصة', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DietPlanScreen()))),
           _menuItem(context, Icons.event_note, 'فحوصات دورية', 'تذكير الفحوصات', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CheckupReminderScreen()))),
+          _menuItem(context, Icons.edit, 'تعديل الملف الشخصي', 'بياناتك الصحية', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const EditProfileScreen()))),
           Text('عام', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           _menuItem(context, Icons.notifications_active, 'الإشعارات', 'تنبيهاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()))),
