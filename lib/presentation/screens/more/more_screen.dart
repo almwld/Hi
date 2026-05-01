@@ -1,3 +1,6 @@
+import 'package:sehatak/presentation/screens/risk_calculator/risk_calculator_screen.dart';
+import 'package:sehatak/presentation/screens/diet_plan/diet_plan_screen.dart';
+import 'package:sehatak/presentation/screens/checkup_reminder/checkup_reminder_screen.dart';
 import 'package:sehatak/presentation/screens/recovery_calculator/recovery_calculator_screen.dart';
 import 'package:sehatak/presentation/screens/home_lab/home_lab_screen.dart';
 import 'package:sehatak/presentation/screens/personal_medic/personal_medic_screen.dart';
@@ -179,6 +182,9 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.shopping_cart, 'قائمة التسوق', 'تسوق صحي', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ShoppingListScreen()))),
           _menuItem(context, Icons.healing, 'حاسبة التعافي', 'مدة الشفاء المتوقعة', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const RecoveryCalculatorScreen()))),
           _menuItem(context, Icons.home_repair_service, 'فحص منزلي', 'اطلب الفحص لبابك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HomeLabScreen()))),
+          _menuItem(context, Icons.assessment, 'حاسبة الخطر', 'خطر الأمراض', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const RiskCalculatorScreen()))),
+          _menuItem(context, Icons.restaurant_menu, 'خطة غذائية', 'حمية مخصصة', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DietPlanScreen()))),
+          _menuItem(context, Icons.event_note, 'فحوصات دورية', 'تذكير الفحوصات', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CheckupReminderScreen()))),
           Text('عام', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           _menuItem(context, Icons.notifications_active, 'الإشعارات', 'تنبيهاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()))),
