@@ -281,8 +281,4 @@ class _HomeTab extends StatelessWidget {
   Widget build(BuildContext context) => const Center(child: Text('المواعيد'));
 }
 
-class PatientDashboardPlaceholder extends StatelessWidget {
-  const PatientDashboardPlaceholder({super.key});
-  @override
-  Widget build(BuildContext context) => const Center(child: Text('الملف الصحي'));
-}
+// placeholder removed

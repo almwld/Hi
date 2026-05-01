@@ -275,7 +275,7 @@ class _PatientAppointmentsState extends State<PatientAppointments> with SingleTi
     return ListView.builder(
       padding: const EdgeInsets.all(14),
       itemCount: _pastAppointments.length,
-      itemBuilder: (context, i) => _buildPastCard(_pastAppointments[index]),
+      itemBuilder: (context, idx) => _buildPastCard(_pastAppointments[idx]),
     );
   }
 

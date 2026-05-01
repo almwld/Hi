@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sehatak/core/constants/app_colors.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class HealthCalendarScreen extends StatefulWidget {
   const HealthCalendarScreen({super.key});
@@ -11,26 +12,21 @@ class _HealthCalendarScreenState extends State<HealthCalendarScreen> {
   DateTime _selectedDate = DateTime.now();
   DateTime _focusedDate = DateTime.now();
 
-  final Map<DateTime, List<Map<String, String>>> _events = {
-    DateTime(2026, 5, 15): [{'title': 'موعد د. علي المولد', 'time': '10:30 ص', 'type': 'موعد'}],
-    DateTime(2026, 5, 18): [{'title': 'موعد د. حسن رضا', 'time': '2:00 م', 'type': 'موعد'}],
-    DateTime(2026, 5, 22): [{'title': 'موعد د. فاطمة', 'time': '9:00 ص', 'type': 'موعد'}, {'title': 'تذكير: تجديد وصفة', 'time': 'طوال اليوم', 'type': 'تذكير'}],
-    DateTime(2026, 5, 25): [{'title': 'تحليل دم شامل', 'time': '8:00 ص', 'type': 'تحليل'}],
-    DateTime(2026, 5, 10): [{'title': 'تذكير: قياس الضغط', 'time': 'مساءً', 'type': 'تذكير'}],
-  ];
-
   List<Map<String, String>> _getEventsForDay(DateTime day) {
-    return _events[DateTime(day.year, day.month, day.day)] ?? [];
+    if (day.day == 15 && day.month == 5) return [{'title': 'موعد د. علي المولد', 'time': '10:30 ص', 'type': 'موعد'}];
+    if (day.day == 18 && day.month == 5) return [{'title': 'موعد د. حسن رضا', 'time': '2:00 م', 'type': 'موعد'}];
+    if (day.day == 22 && day.month == 5) return [{'title': 'موعد د. فاطمة', 'time': '9:00 ص', 'type': 'موعد'}, {'title': 'تذكير: تجديد وصفة', 'time': 'طوال اليوم', 'type': 'تذكير'}];
+    if (day.day == 25 && day.month == 5) return [{'title': 'تحليل دم شامل', 'time': '8:00 ص', 'type': 'تحليل'}];
+    if (day.day == 10 && day.month == 5) return [{'title': 'تذكير: قياس الضغط', 'time': 'مساءً', 'type': 'تذكير'}];
+    return [];
   }
 
   @override
   Widget build(BuildContext context) {
     final events = _getEventsForDay(_selectedDate);
-
     return Scaffold(
       appBar: AppBar(title: const Text('التقويم الصحي'), actions: [IconButton(icon: const Icon(Icons.add), onPressed: () {})]),
       body: Column(children: [
-        // تقويم
         Container(
           margin: const EdgeInsets.all(14),
           decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 6)]),
@@ -39,17 +35,12 @@ class _HealthCalendarScreenState extends State<HealthCalendarScreen> {
             lastDay: DateTime(2028),
             focusedDay: _focusedDate,
             selectedDayPredicate: (day) => isSameDay(_selectedDate, day),
-            onDaySelected: (selectedDay, focusedDay) => setState(() { _selectedDate = selectedDay; _focusedDay = focusedDay; }),
-            calendarStyle: CalendarStyle(
-              selectedDecoration: BoxDecoration(color: AppColors.primary, shape: BoxShape.circle),
-              todayDecoration: BoxDecoration(color: AppColors.primary.withOpacity(0.3), shape: BoxShape.circle),
-              markerDecoration: BoxDecoration(color: AppColors.error, shape: BoxShape.circle),
-            ),
+            onDaySelected: (selectedDay, focusedDay) => setState(() { _selectedDate = selectedDay; _focusedDate = focusedDay; }),
+            calendarStyle: CalendarStyle(selectedDecoration: BoxDecoration(color: AppColors.primary, shape: BoxShape.circle), todayDecoration: BoxDecoration(color: AppColors.primary.withOpacity(0.3), shape: BoxShape.circle)),
             headerStyle: const HeaderStyle(formatButtonVisible: false, titleCentered: true),
             locale: 'ar',
           ),
         ),
-        // أحداث اليوم
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14),
           child: Row(children: [Text('${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)), const Spacer(), Text('${events.length} أحداث', style: const TextStyle(color: AppColors.grey, fontSize: 12))]),
