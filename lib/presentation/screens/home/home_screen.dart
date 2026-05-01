@@ -5,6 +5,8 @@ import 'package:sehatak/presentation/widgets/common_widgets.dart';
 import 'package:sehatak/presentation/screens/doctor/doctors_list_screen.dart';
 import 'package:sehatak/presentation/screens/more/more_screen.dart';
 import 'package:sehatak/presentation/bloc/theme_bloc/theme_bloc.dart';
+import 'package:sehatak/presentation/screens/patient/patient_appointments.dart';
+import 'package:sehatak/presentation/screens/patient/patient_dashboard.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,8 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _screens = const [
     _HomeTab(),
     DoctorsListScreen(),
-    PatientAppointmentsPlaceholder(),
-    PatientDashboardPlaceholder(),
+    PatientAppointments(),
+    PatientDashboard(),
     MoreScreen(),
   ];
 
@@ -54,7 +56,6 @@ class _HomeTab extends StatelessWidget {
       appBar: AppBar(
         title: const Row(children: [Text('👋'), SizedBox(width: 8), Text('صباح الخير، أحمد')]),
         actions: [
-          // زر تبديل الوضع الليلي/النهاري
           BlocBuilder<ThemeBloc, ThemeState>(
             builder: (context, state) {
               bool isDark = false;
@@ -63,17 +64,12 @@ class _HomeTab extends StatelessWidget {
               }
               return IconButton(
                 icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
-                onPressed: () {
-                  context.read<ThemeBloc>().add(SetThemeEvent(!isDark));
-                },
+                onPressed: () => context.read<ThemeBloc>().add(SetThemeEvent(!isDark)),
                 tooltip: isDark ? 'الوضع النهاري' : 'الوضع الليلي',
               );
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.notifications_outlined),
-            onPressed: () {},
-          ),
+          IconButton(icon: const Icon(Icons.notifications_outlined), onPressed: () {}),
         ],
       ),
       body: SingleChildScrollView(
@@ -146,21 +142,5 @@ class _HomeTab extends StatelessWidget {
         const Icon(Icons.chevron_left, color: AppColors.grey),
       ]),
     );
-  }
-}
-
-class PatientAppointmentsPlaceholder extends StatelessWidget {
-  const PatientAppointmentsPlaceholder({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('المواعيد'));
-  }
-}
-
-class PatientDashboardPlaceholder extends StatelessWidget {
-  const PatientDashboardPlaceholder({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('الملف الصحي'));
   }
 }
