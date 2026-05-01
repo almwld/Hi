@@ -1,3 +1,5 @@
+import 'package:sehatak/presentation/screens/share_app/share_app_screen.dart';
+import 'package:sehatak/presentation/screens/rate_app/rate_app_screen.dart';
 import 'package:sehatak/presentation/screens/help_center/help_center_screen.dart';
 import 'package:sehatak/presentation/screens/contact_us/contact_us_screen.dart';
 import 'package:sehatak/presentation/screens/report_issue/report_issue_screen.dart';
@@ -207,6 +209,8 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.help, 'مركز المساعدة', 'أسئلة شائعة', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HelpCenterScreen()))),
           _menuItem(context, Icons.headset_mic, 'تواصل معنا', 'راسل فريق الدعم', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ContactUsScreen()))),
           _menuItem(context, Icons.bug_report, 'الإبلاغ عن مشكلة', 'ساعدنا في التحسين', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ReportIssueScreen()))),
+          _menuItem(context, Icons.share, 'مشاركة التطبيق', 'انشر الفائدة', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ShareAppScreen()))),
+          _menuItem(context, Icons.star_rate, 'تقييم التطبيق', 'قيمنا على المتجر', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const RateAppScreen()))),
           Text('عام', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           _menuItem(context, Icons.notifications_active, 'الإشعارات', 'تنبيهاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()))),
