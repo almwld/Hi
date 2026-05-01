@@ -101,7 +101,7 @@ class _HealthCalendarScreenState extends State<HealthCalendarScreen> {
               markerDecoration: const BoxDecoration(color: AppColors.error, shape: BoxShape.circle),
               weekendTextStyle: const TextStyle(color: AppColors.error),
             ),
-            headerStyle: const HeaderStyle(formatButtonVisible: true, titleCentered: true, formatButtonShowsNext: false, formatButtonDecoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(8)), formatButtonTextStyle: TextStyle(color: AppColors.primary)),
+            headerStyle: HeaderStyle(formatButtonVisible: true, titleCentered: true, formatButtonShowsNext: false, formatButtonDecoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(8)), formatButtonTextStyle: const TextStyle(color: AppColors.primary)),
             locale: 'ar',
           ),
         ),
