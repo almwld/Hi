@@ -1,4 +1,3 @@
-import 'package:sehatak/presentation/screens/health_map/health_map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/core/constants/app_colors.dart';
@@ -12,6 +11,11 @@ import 'package:sehatak/presentation/screens/patient/patient_medical_history.dar
 import 'package:sehatak/presentation/bloc/theme_bloc/theme_bloc.dart';
 import 'package:sehatak/presentation/screens/about/about_screen.dart';
 import 'package:sehatak/presentation/screens/health_tips/health_tips_screen.dart';
+import 'package:sehatak/presentation/screens/health_map/health_map_screen.dart';
+import 'package:sehatak/presentation/screens/patient/patient_appointments.dart';
+import 'package:sehatak/presentation/screens/patient/patient_dashboard.dart';
+import 'package:sehatak/presentation/screens/chat/chat_screen.dart';
+import 'package:sehatak/presentation/screens/smart_clinic/smart_clinic_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,27 +29,94 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _screens = const [
     _HomeTab(),
     DoctorsListScreen(),
-    Center(child: Text('المواعيد')),
-    Center(child: Text('الملف الصحي')),
+    PharmacyScreen(),
+    ChatScreen(),
+    PatientAppointments(),
+    PatientDashboard(),
     MoreScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final bgColor = isDark ? const Color(0xFF1E293B) : Colors.white;
+
     return Scaffold(
       body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (i) => setState(() => _currentIndex = i),
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'الرئيسية'),
-          BottomNavigationBarItem(icon: Icon(Icons.person_search_rounded), label: 'الأطباء'),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_month_rounded), label: 'المواعيد'),
-          BottomNavigationBarItem(icon: Icon(Icons.folder_rounded), label: 'الملف الصحي'),
-          BottomNavigationBarItem(icon: Icon(Icons.grid_view_rounded), label: 'المزيد'),
+      bottomNavigationBar: Container(
+        height: 68,
+        decoration: BoxDecoration(
+          color: bgColor,
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.12), blurRadius: 12, offset: const Offset(0, -2))],
+        ),
+        child: SafeArea(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _navItem(0, Icons.home_rounded, 'الرئيسية'),
+              _navItem(1, Icons.person_search_rounded, 'الأطباء'),
+              _navItem(2, Icons.local_pharmacy_rounded, 'الصيدلية'),
+              // أيقونة الدردشة الوسطى البارزة
+              _centerChatButton(),
+              _navItem(4, Icons.calendar_month_rounded, 'المواعيد'),
+              _navItem(5, Icons.folder_rounded, 'صحتي'),
+              _navItem(6, Icons.grid_view_rounded, 'المزيد'),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _navItem(int index, IconData icon, String label) {
+    final selected = _currentIndex == index;
+    final color = selected ? AppColors.primary : Theme.of(context).unselectedWidgetColor ?? AppColors.grey;
+
+    return GestureDetector(
+      onTap: () => setState(() => _currentIndex = index),
+      child: SizedBox(
+        width: 48,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (selected)
+              Container(
+                width: 32, height: 3,
+                margin: const EdgeInsets.only(bottom: 4),
+                decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(2)),
+              )
+            else
+              const SizedBox(height: 7),
+            Icon(icon, color: color, size: 22),
+            const SizedBox(height: 2),
+            Text(label, style: TextStyle(fontSize: 9, fontWeight: selected ? FontWeight.w600 : FontWeight.normal, color: color)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _centerChatButton() {
+    final selected = _currentIndex == 3;
+    return GestureDetector(
+      onTap: () => setState(() => _currentIndex = 3),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 50,
+            height: 50,
+            margin: const EdgeInsets.only(bottom: 2),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(colors: [AppColors.primary, AppColors.primaryDark]),
+              shape: BoxShape.circle,
+              boxShadow: [BoxShadow(color: AppColors.primary.withOpacity(0.45), blurRadius: 14, offset: const Offset(0, 4))],
+            ),
+            child: const Icon(Icons.chat_rounded, color: Colors.white, size: 26),
+          ),
+          Text('الدردشة', style: TextStyle(fontSize: 8, fontWeight: selected ? FontWeight.w600 : FontWeight.normal, color: selected ? AppColors.primary : AppColors.grey)),
         ],
       ),
     );
@@ -59,6 +130,18 @@ class _HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(colors: [AppColors.primary, AppColors.primaryDark]),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Icon(Icons.smart_toy, color: Colors.white, size: 20),
+          ),
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SmartClinicScreen())),
+          tooltip: 'المساعد الذكي',
+        ),
         title: const Row(children: [Text('👋'), SizedBox(width: 8), Text('صباح الخير، أحمد')]),
         actions: [
           BlocBuilder<ThemeBloc, ThemeState>(
@@ -77,8 +160,7 @@ class _HomeTab extends StatelessWidget {
           const CustomSearchBar(hint: 'بحث عن خدمات، أطباء، مقالات...'),
           const SizedBox(height: 16),
           Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(20),
+            width: double.infinity, padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(gradient: const LinearGradient(colors: [Color(0xFF00796B), Color(0xFF004D40)]), borderRadius: BorderRadius.circular(16)),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const Text('صحتك، أولويتنا', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
@@ -114,7 +196,6 @@ class _HomeTab extends StatelessWidget {
                 const Row(children: [Text('د. علي المولد', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)), SizedBox(width: 6), Icon(Icons.verified, color: AppColors.info, size: 18)]),
                 const Text('استشاري باطنية وأطفال', style: TextStyle(fontSize: 12, color: AppColors.primary)),
                 const Text('خبرة 20+ سنة', style: TextStyle(fontSize: 11, color: AppColors.darkGrey)),
-                const SizedBox(height: 4),
                 Row(children: [const Icon(Icons.star, color: AppColors.amber, size: 16), const Text(' 4.9', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)), const Text(' (328 تقييم)', style: TextStyle(fontSize: 10, color: AppColors.grey)), const SizedBox(width: 10), Container(padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2), decoration: BoxDecoration(color: Colors.green.withOpacity(0.1), borderRadius: BorderRadius.circular(4)), child: const Text('متاح اليوم', style: TextStyle(fontSize: 9, color: Colors.green)))]),
               ])),
             ]),
@@ -123,15 +204,10 @@ class _HomeTab extends StatelessWidget {
           DoctorCard(name: 'د. حسن رضا', specialty: 'طبيب عام', experience: 'خبرة 8+ سنوات', rating: 4.8, reviews: 235, onTap: () {}),
           const SizedBox(height: 6),
           DoctorCard(name: 'د. عائشة ملك', specialty: 'طبيبة جلدية', experience: 'خبرة 6+ سنوات', rating: 4.9, reviews: 189, onTap: () {}),
-          const SizedBox(height: 6),
-          DoctorCard(name: 'د. عثمان خان', specialty: 'طبيب قلب', experience: 'خبرة 10+ سنوات', rating: 4.7, reviews: 312, onTap: () {}),
           const SizedBox(height: 22),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text('نصائح ومقالات', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)), TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthTipsScreen())), child: const Text('المزيد ›'))]),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text('نصائح ومقالات', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontweight: FontWeight.bold)), TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthTipsScreen())), child: const Text('المزيد ›'))]),
           const SizedBox(height: 8),
-          Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(gradient: LinearGradient(colors: [Colors.amber.shade100, Colors.orange.shade100]), borderRadius: BorderRadius.circular(16)), child: Row(children: [Container(width: 50, height: 50, decoration: BoxDecoration(color: AppColors.amber.withOpacity(0.3), shape: BoxShape.circle), child: const Center(child: Text('💡', style: TextStyle(fontSize: 28)))), const SizedBox(width: 12), const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('نصيحة اليوم', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)), SizedBox(height: 2), Text('اشرب 8 أكواب من الماء يومياً للحفاظ على صحة الكلى والجسم', style: TextStyle(fontSize: 12, color: AppColors.darkGrey, height: 1.4))]))])),
-          const SizedBox(height: 8),
-          _postCard('د. علي المولد', 'استشاري باطنية وأطفال', 'منذ 3 ساعات', '👨‍⚕️', '🫀 ارتفاع ضغط الدم مرض صامت.. أنصح الجميع بقياس الضغط دورياً والمشي 30 دقيقة يومياً.', 45, 12),
-          _postCard('د. عائشة ملك', 'طبيبة جلدية', 'منذ 5 ساعات', '👩‍⚕️', '☀️ مع دخول الصيف.. لا تنسوا استخدام واقي الشمس وتجديده كل ساعتين.', 32, 8),
+          Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(gradient: LinearGradient(colors: [Colors.amber.shade100, Colors.orange.shade100]), borderRadius: BorderRadius.circular(16)), child: Row(children: [Container(width: 50, height: 50, decoration: BoxDecoration(color: AppColors.amber.withOpacity(0.3), shape: BoxShape.circle), child: const Center(child: Text('💡', style: TextStyle(fontSize: 28)))), const SizedBox(width: 12), const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('نصيحة اليوم', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)), Text('اشرب 8 أكواب من الماء يومياً للحفاظ على صحة الكلى والجسم', style: TextStyle(fontSize: 12, color: AppColors.darkGrey, height: 1.4))]))])),
           const SizedBox(height: 22),
           Text('السجل الطبي', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
@@ -145,11 +221,7 @@ class _HomeTab extends StatelessWidget {
   }
 
   Widget _quickService(BuildContext context, IconData icon, String label, Color color, VoidCallback onTap) {
-    return GestureDetector(onTap: onTap, child: Column(children: [Container(padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: color.withOpacity(0.08), shape: BoxShape.circle), child: Icon(icon, color: color, size: 28)), const SizedBox(height: 6), Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500))]));
-  }
-
-  Widget _postCard(String name, String title, String time, String avatar, String content, int likes, int comments) {
-    return Container(margin: const EdgeInsets.only(bottom: 10), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(14), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 6)]), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [CircleAvatar(radius: 20, backgroundColor: AppColors.primary.withOpacity(0.1), child: Text(avatar, style: const TextStyle(fontSize: 20))), const SizedBox(width: 10), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)), Text(title, style: const TextStyle(fontSize: 10, color: AppColors.grey))])), Text(time, style: const TextStyle(fontSize: 9, color: AppColors.grey))]), const SizedBox(height: 10), Text(content, style: const TextStyle(fontSize: 12, height: 1.5, color: AppColors.darkGrey)), const SizedBox(height: 10), Row(children: [const Icon(Icons.favorite_border, size: 16, color: AppColors.error), const SizedBox(width: 4), Text('$likes', style: const TextStyle(fontSize: 11, color: AppColors.grey)), const SizedBox(width: 16), const Icon(Icons.chat_bubble_outline, size: 16, color: AppColors.info), const SizedBox(width: 4), Text('$comments تعليق', style: const TextStyle(fontSize: 11, color: AppColors.grey)), const Spacer(), const Icon(Icons.share, size: 16, color: AppColors.grey)])]));
+    return GestureDetector(onTap: onTap, child: Column(children: [Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: color.withOpacity(0.08), shape: BoxShape.circle), child: Icon(icon, color: color, size: 24)), const SizedBox(height: 4), Text(label, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500))]));
   }
 
   Widget _historyItem(BuildContext context, String title, String subtitle, Color color) {
