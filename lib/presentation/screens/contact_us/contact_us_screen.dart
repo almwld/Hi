@@ -21,7 +21,6 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(14),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          // معلومات الاتصال
           Row(children: [
             _contactInfoCard('📧', 'البريد', 'info@sehatak.com', AppColors.primary),
             const SizedBox(width: 8),
@@ -30,12 +29,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             _contactInfoCard('🕐', 'الدوام', '24/7', AppColors.info),
           ]),
           const SizedBox(height: 20),
-
-          // نموذج التواصل
           Text('أرسل رسالة', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
-
-          // التصنيف
           Container(
             margin: const EdgeInsets.only(bottom: 10),
             padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -47,7 +42,6 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               onChanged: (v) => setState(() => _category = v!),
             ),
           ),
-
           _textField('الاسم', Icons.person, _nameController),
           _textField('البريد الإلكتروني', Icons.email, _emailController, TextInputType.emailAddress),
           _textField('الموضوع', Icons.subject, _subjectController),
@@ -55,20 +49,15 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             margin: const EdgeInsets.only(bottom: 10),
             decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 4)]),
             child: TextField(
-              controller: _messageController,
-              maxLines: 4,
-              textAlign: TextAlign.right,
-              decoration: const InputDecoration(
-                labelText: 'الرسالة',
-                hintText: 'اكتب رسالتك هنا...',
-                prefixIcon: Icon(Icons.message),
-                border: const OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              controller: _messageController, maxLines: 4, textAlign: TextAlign.right,
+              decoration: InputDecoration(
+                labelText: 'الرسالة', hintText: 'اكتب رسالتك هنا...',
+                prefixIcon: const Icon(Icons.message),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               ),
             ),
           ),
           const SizedBox(height: 16),
-
-          // وسائل التواصل
           Text('أو تواصل عبر', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
@@ -78,7 +67,6 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             _socialButton(Icons.alternate_email, 'تويتر', const Color(0xFF1DA1F2)),
           ]),
           const SizedBox(height: 20),
-
           SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () { ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('تم إرسال رسالتك. سنرد عليك قريباً.'), backgroundColor: AppColors.success)); }, style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, padding: const EdgeInsets.symmetric(vertical: 14)), child: const Text('إرسال الرسالة', style: TextStyle(fontSize: 16)))),
         ]),
       ),
@@ -86,16 +74,21 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   }
 
   Widget _contactInfoCard(String emoji, String label, String value, Color color) {
-    return Expanded(
-      child: Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: color.withOpacity(0.05), borderRadius: BorderRadius.circular(12)), child: Column(children: [Text(emoji, style: const TextStyle(fontSize: 24)), const SizedBox(height: 4), Text(value, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: color)), Text(label, style: const TextStyle(fontSize: 9, color: AppColors.grey))])),
-    );
+    return Expanded(child: Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: color.withOpacity(0.05), borderRadius: BorderRadius.circular(12)), child: Column(children: [Text(emoji, style: const TextStyle(fontSize: 24)), const SizedBox(height: 4), Text(value, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: color)), Text(label, style: const TextStyle(fontSize: 9, color: AppColors.grey))])));
   }
 
   Widget _textField(String label, IconData icon, TextEditingController controller, [TextInputType? keyboardType]) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 4)]),
-      child: TextField(controller: controller, keyboardType: keyboardType, textAlign: TextAlign.right, decoration: InputDecoration(labelText: label, prefixIcon: Icon(icon), border: const OutlineInputBorder(borderRadius: BorderRadius.circular(10)))),
+      child: TextField(
+        controller: controller, keyboardType: keyboardType, textAlign: TextAlign.right,
+        decoration: InputDecoration(
+          labelText: label,
+          prefixIcon: Icon(icon),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
     );
   }
 
