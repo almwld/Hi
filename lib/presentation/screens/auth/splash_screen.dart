@@ -12,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginScreen()),
@@ -26,8 +26,8 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
             colors: [Colors.teal.shade600, Colors.teal.shade800],
           ),
         ),
@@ -40,12 +40,12 @@ class _SplashScreenState extends State<SplashScreen> {
               Text(
                 'صحتك',
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: 36,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 8),
               Text(
                 'تطبيقك الطبي المتكامل',
                 style: TextStyle(fontSize: 16, color: Colors.white70),

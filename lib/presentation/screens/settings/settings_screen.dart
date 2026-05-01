@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sehatak/presentation/bloc/theme_bloc/theme_bloc.dart' hide ThemeMode;
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
-import 'package:sehatak/presentation/bloc/theme_bloc/theme_bloc.dart' hide ThemeMode;
 import '../../../core/constants/app_dimensions.dart';
 import '../auth/login_screen.dart';
 
@@ -12,16 +12,16 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppStrings.settings)),
+      appBar: AppBar(title: const Text('الإعدادات')),
       body: ListView(
-        padding: const EdgeInsets.all(AppDimensions.paddingL),
+        padding: const EdgeInsets.all(14),
         children: [
           _buildSectionTitle(context, 'الحساب'),
-          _buildSettingItem(context, Icons.person_outline, AppStrings.profile, () {}),
-          _buildSettingItem(context, Icons.notifications_outlined, AppStrings.notifications, () {}),
-          _buildSettingItem(context, Icons.lock_outline, AppStrings.security, () {}),
-          _buildSettingItem(context, Icons.privacy_tip_outlined, AppStrings.privacy, () {}),
-          const SizedBox(height: 24),
+          _buildSettingItem(context, Icons.person_outline, 'الملف الشخصي', () {}),
+          _buildSettingItem(context, Icons.notifications_outlined, 'الإشعارات', () {}),
+          _buildSettingItem(context, Icons.lock_outline, 'الأمان', () {}),
+          _buildSettingItem(context, Icons.privacy_tip_outlined, 'الخصوصية', () {}),
+          const SizedBox(height: 20),
           _buildSectionTitle(context, 'التفضيلات'),
           BlocBuilder<ThemeBloc, ThemeState>(
             builder: (context, state) {
@@ -31,7 +31,7 @@ class SettingsScreen extends StatelessWidget {
               }
               return SwitchListTile(
                 secondary: const Icon(Icons.dark_mode, color: AppColors.primary),
-                title: Text(AppStrings.darkMode),
+                title: const Text('الوضع الليلي'),
                 value: isDark,
                 onChanged: (value) {
                   context.read<ThemeBloc>().add(SetThemeEvent(value));
@@ -39,18 +39,18 @@ class SettingsScreen extends StatelessWidget {
               );
             },
           ),
-          _buildSettingItem(context, Icons.language, AppStrings.language, () {}),
-          const SizedBox(height: 24),
+          _buildSettingItem(context, Icons.language, 'اللغة', () {}),
+          const SizedBox(height: 20),
           _buildSectionTitle(context, 'المساعدة'),
-          _buildSettingItem(context, Icons.help_outline, AppStrings.helpSupport, () {}),
-          _buildSettingItem(context, Icons.info_outline, AppStrings.about, () {}),
-          _buildSettingItem(context, Icons.description_outlined, AppStrings.termsConditions, () {}),
-          _buildSettingItem(context, Icons.policy_outlined, AppStrings.privacyPolicy, () {}),
-          const SizedBox(height: 24),
+          _buildSettingItem(context, Icons.help_outline, 'المساعدة والدعم', () {}),
+          _buildSettingItem(context, Icons.info_outline, 'عن التطبيق', () {}),
+          _buildSettingItem(context, Icons.description_outlined, 'الشروط والأحكام', () {}),
+          _buildSettingItem(context, Icons.policy_outlined, 'سياسة الخصوصية', () {}),
+          const SizedBox(height: 20),
           _buildSectionTitle(context, 'الخروج'),
           ListTile(
             leading: const Icon(Icons.logout, color: AppColors.error),
-            title: Text(AppStrings.logout, style: const TextStyle(color: AppColors.error)),
+            title: const Text('تسجيل الخروج', style: TextStyle(color: AppColors.error)),
             onTap: () {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (_) => const LoginScreen()),
@@ -65,7 +65,7 @@ class SettingsScreen extends StatelessWidget {
 
   Widget _buildSectionTitle(BuildContext context, String title) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8, right: 8),
+      padding: const EdgeInsets.only(bottom: 8, right: 4),
       child: Text(title, style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.grey, fontWeight: FontWeight.w500)),
     );
   }
@@ -74,7 +74,7 @@ class SettingsScreen extends StatelessWidget {
     return ListTile(
       leading: Icon(icon, color: AppColors.primary),
       title: Text(title),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: AppColors.grey),
+      trailing: const Icon(Icons.arrow_back_ios, size: 14, color: AppColors.grey),
       onTap: onTap,
     );
   }
