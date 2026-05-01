@@ -38,8 +38,6 @@ class VitalsDashboardScreen extends StatelessWidget {
           const SizedBox(height: 10),
           _vitalCard('BMI', '23.7', 'kg/m²', Icons.calculate, AppColors.primary, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const BMICalculatorScreen()))),
           const SizedBox(height: 20),
-
-          // تنبيهات
           Container(
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(color: AppColors.warning.withOpacity(0.06), borderRadius: BorderRadius.circular(14), border: Border.all(color: AppColors.warning.withOpacity(0.2))),

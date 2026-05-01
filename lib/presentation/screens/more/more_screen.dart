@@ -1,3 +1,6 @@
+import 'package:sehatak/presentation/screens/pill_organizer/pill_organizer_screen.dart';
+import 'package:sehatak/presentation/screens/urgent_consult/urgent_consult_screen.dart';
+import 'package:sehatak/presentation/screens/drug_compare/drug_compare_screen.dart';
 import 'package:sehatak/presentation/screens/pediatric_dose/pediatric_dose_screen.dart';
 import 'package:sehatak/presentation/screens/vision_test/vision_test_screen.dart';
 import 'package:sehatak/presentation/screens/weather_health/weather_health_screen.dart';
@@ -165,6 +168,9 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.child_care, 'جرعات الأطفال', 'حاسبة أدوية الأطفال', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PediatricDoseScreen()))),
           _menuItem(context, Icons.visibility, 'فحص النظر', 'اختبر قوة بصرك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VisionTestScreen()))),
           _menuItem(context, Icons.wb_sunny, 'الطقس والصحة', 'تأثير الطقس عليك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WeatherHealthScreen()))),
+          _menuItem(context, Icons.calendar_view_week, 'منظم الأدوية', 'جدول أسبوعي', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PillOrganizerScreen()))),
+          _menuItem(context, Icons.priority_high, 'استشارة طارئة', 'تواصل فوري', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const UrgentConsultScreen()))),
+          _menuItem(context, Icons.compare_arrows, 'مقارنة أدوية', 'قارن بين الأدوية', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DrugCompareScreen()))),
           Text('عام', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           _menuItem(context, Icons.notifications_active, 'الإشعارات', 'تنبيهاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()))),
