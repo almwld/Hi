@@ -42,7 +42,7 @@ class HomeCareScreen extends StatelessWidget {
                     Text(s['name']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                     Text(s['desc']!, style: const TextStyle(fontSize: 9, color: AppColors.grey)),
                     const SizedBox(height: 4),
-                    Container(padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2), decoration: BoxDecoration(color: (s['color'] as Color).withOpacity(0.08), borderRadius: BorderRadius.circular(4)), child: Text('${s['price']} ر.س • ${s['duration']}', style: TextStyle(fontSize: 9, color: s['color']))),
+                    Container(padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2), decoration: BoxDecoration(color: (s['color'] as Color).withOpacity(0.08), borderRadius: BorderRadius.circular(4)), child: Text('${s['price']} ر.س • ${s['duration']}', style: TextStyle(fontSize: 9, color: s['color'] as Color))),
                   ]),
                 ),
             ],

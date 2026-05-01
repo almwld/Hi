@@ -205,7 +205,7 @@ class _HomeTab extends StatelessWidget {
           const SizedBox(height: 6),
           DoctorCard(name: 'د. عائشة ملك', specialty: 'طبيبة جلدية', experience: 'خبرة 6+ سنوات', rating: 4.9, reviews: 189, onTap: () {}),
           const SizedBox(height: 22),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text('نصائح ومقالات', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontweight: FontWeight.bold)), TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthTipsScreen())), child: const Text('المزيد ›'))]),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text('نصائح ومقالات', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)), TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthTipsScreen())), child: const Text('المزيد ›'))]),
           const SizedBox(height: 8),
           Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(gradient: LinearGradient(colors: [Colors.amber.shade100, Colors.orange.shade100]), borderRadius: BorderRadius.circular(16)), child: Row(children: [Container(width: 50, height: 50, decoration: BoxDecoration(color: AppColors.amber.withOpacity(0.3), shape: BoxShape.circle), child: const Center(child: Text('💡', style: TextStyle(fontSize: 28)))), const SizedBox(width: 12), const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('نصيحة اليوم', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)), Text('اشرب 8 أكواب من الماء يومياً للحفاظ على صحة الكلى والجسم', style: TextStyle(fontSize: 12, color: AppColors.darkGrey, height: 1.4))]))])),
           const SizedBox(height: 22),

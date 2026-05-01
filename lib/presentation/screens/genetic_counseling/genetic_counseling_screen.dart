@@ -23,7 +23,7 @@ class GeneticCounselingScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(gradient: LinearGradient(colors: [Colors.indigo.shade400, Colors.indigo.shade700]), borderRadius: BorderRadius.circular(16)),
-            child: const Column(children: [Text('🧬', style: TextStyle(fontSize: 48)), SizedBox(height: 8), Text('الاستشارات الوراثية', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)), Text('فحوصات متقدمة للكشف عن الأمراض الوراثية', style: TextStyle(color: Colors.white70, fontSize: 12, textAlign: TextAlign.center))]),
+            child: const Column(children: [Text('🧬', style: TextStyle(fontSize: 48)), SizedBox(height: 8), Text('الاستشارات الوراثية', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)), Text('فحوصات متقدمة للكشف عن الأمراض الوراثية', style: TextStyle(color: Colors.white70, fontSize: 12))]),
           ),
           const SizedBox(height: 16),
           ..._services.map((s) => Container(
