@@ -135,7 +135,7 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.people, 'مجتمع صحتك', 'انضم للنقاشات الصحية', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthCommunityScreen()))),
           _menuItem(context, Icons.emoji_events, 'تحديات صحية', 'اربح نقاطاً وجوائز', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthChallengesScreen()))),
           _menuItem(context, Icons.psychology, 'صحة نفسية', 'استشارات ودعم نفسي', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MentalHealthScreen()))),
-          _menuItem(context, Icons.dentistry, 'طب الأسنان', 'خدمات ونصائح للأسنان', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DentalCareScreen()))),
+          _menuItem(context, Icons.masks, 'طب الأسنان', 'خدمات ونصائح للأسنان', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DentalCareScreen()))),
           _menuItem(context, Icons.visibility, 'طب العيون', 'فحوصات ونصائح للعيون', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const EyeCareScreen()))),
           _menuItem(context, Icons.favorite_outline, 'أطباء مفضلين', 'قائمة أطبائك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FavoriteDoctorsScreen()))),
           _menuItem(context, Icons.compare, 'مقارنة مستشفيات', 'قارن قبل الاختيار', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HospitalCompareScreen()))),
