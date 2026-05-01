@@ -1,3 +1,6 @@
+import 'package:sehatak/presentation/screens/pediatric_dose/pediatric_dose_screen.dart';
+import 'package:sehatak/presentation/screens/vision_test/vision_test_screen.dart';
+import 'package:sehatak/presentation/screens/weather_health/weather_health_screen.dart';
 import 'package:sehatak/presentation/screens/health_education/health_education_screen.dart';
 import 'package:sehatak/presentation/screens/share_health/share_health_screen.dart';
 import 'package:sehatak/presentation/screens/health_news/health_news_screen.dart';
@@ -159,6 +162,9 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.share, 'مشاركة الملف', 'شارك بياناتك بأمان', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ShareHealthScreen()))),
           _menuItem(context, Icons.newspaper, 'أخبار صحية', 'آخر الأخبار', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthNewsScreen()))),
           _menuItem(context, Icons.location_on, 'عيادات قريبة', 'الأقرب لك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NearbyClinicsScreen()))),
+          _menuItem(context, Icons.child_care, 'جرعات الأطفال', 'حاسبة أدوية الأطفال', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PediatricDoseScreen()))),
+          _menuItem(context, Icons.visibility, 'فحص النظر', 'اختبر قوة بصرك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VisionTestScreen()))),
+          _menuItem(context, Icons.wb_sunny, 'الطقس والصحة', 'تأثير الطقس عليك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WeatherHealthScreen()))),
           Text('عام', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           _menuItem(context, Icons.notifications_active, 'الإشعارات', 'تنبيهاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()))),
