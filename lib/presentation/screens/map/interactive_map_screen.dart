@@ -388,18 +388,18 @@ List<Map<String, dynamic>> get _currentLocations {
   }
 
   Widget _buildTrackingCard() {
-    final steps = ['تم الطلب', 'قيد التجهيز', 'تم الشحن', 'تم التوصيل'];
+    final steps = ["تم الطلب", "قيد التجهيز", "تم الشحن", "تم التوصيل"];
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(14), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 6)]),
       child: Column(children: [
-        Row(children: [Container(width: 36, height: 36, decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.local_shipping, color: AppColors.primary, size: 18)), const SizedBox(width: 8), const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('طلبك في الطريق!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)), Text('رقم الطلب: ${widget.orderId ?? "#SHK-784512"}', style: TextStyle(fontSize: 9, color: AppColors.grey))]))]),
+        Row(children: [Container(width: 36, height: 36, decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.local_shipping, color: AppColors.primary, size: 18)), const SizedBox(width: 8), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [const Text("طلبك في الطريق!", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13)), Text("رقم الطلب: ${widget.orderId ?? "#SHK-784512"}", style: const TextStyle(fontSize: 9, color: AppColors.grey))]))]),
         const SizedBox(height: 10),
         Row(children: List.generate(steps.length, (i) => Expanded(child: Row(children: [Container(width: 12, height: 12, decoration: BoxDecoration(color: i < _currentStep ? AppColors.success : AppColors.grey, shape: BoxShape.circle), child: i < _currentStep ? const Icon(Icons.check, size: 7, color: Colors.white) : null), if (i < steps.length - 1) Expanded(child: Container(height: 2, color: i < _currentStep - 1 ? AppColors.success : AppColors.grey))])))),
         const SizedBox(height: 4),
         Row(children: List.generate(steps.length, (i) => Expanded(child: Text(steps[i], style: TextStyle(fontSize: 7, color: i < _currentStep ? AppColors.success : AppColors.grey), textAlign: TextAlign.center)))),
         const SizedBox(height: 6),
-        Container(padding: const EdgeInsets.all(6), decoration: BoxDecoration(color: AppColors.success.withOpacity(0.06), borderRadius: BorderRadius.circular(6)), child: const Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text('⏱️ ', style: TextStyle(fontSize: 14)), Text('الوقت المتوقع: 18 دقيقة', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.success, fontSize: 11))])),
+        Container(padding: const EdgeInsets.all(6), decoration: BoxDecoration(color: AppColors.success.withOpacity(0.06), borderRadius: BorderRadius.circular(6)), child: const Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text("⏱️ ", style: TextStyle(fontSize: 14)), Text("الوقت المتوقع: 18 دقيقة", style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.success, fontSize: 11))])),
       ]),
     );
   }
