@@ -128,7 +128,7 @@ class _MedicalNotesScreenState extends State<MedicalNotesScreen> {
               // التصنيف
               DropdownButtonFormField<String>(
                 value: category,
-                decoration: const InputDecoration(labelText: 'التصنيف', prefixIcon: Icon(Icons.category), border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
+                decoration: const InputDecoration(labelText: 'التصنيف', prefixIcon: const Icon(Icons.category), border: const OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
                 items: ['أعراض', 'قياسات', 'مواعيد', 'أدوية', 'أخرى'].map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(),
                 onChanged: (v) => setModalState(() => category = v!),
               ),
