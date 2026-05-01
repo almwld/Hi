@@ -8,6 +8,7 @@ import 'package:sehatak/presentation/screens/patient/patient_appointments.dart';
 import 'package:sehatak/presentation/screens/shared/notifications_screen.dart';
 import 'package:sehatak/presentation/screens/settings/settings_screen.dart';
 import 'package:sehatak/presentation/screens/about/about_screen.dart';
+import 'package:sehatak/presentation/screens/map/interactive_map_screen.dart';
 import 'package:sehatak/presentation/screens/emergencies/emergency_numbers.dart';
 import 'package:sehatak/presentation/screens/insurance/insurance_companies.dart';
 import 'package:sehatak/presentation/screens/lab/labs_list_screen.dart';
@@ -29,10 +30,10 @@ class MoreScreen extends StatelessWidget {
             mainAxisSpacing: 10, crossAxisSpacing: 10,
             children: [
               _serviceItem(context, Icons.emergency_share, 'الطوارئ', AppColors.error, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const EmergencyNumbers()))),
-              _serviceItem(context, Icons.local_hospital, 'مستشفيات', AppColors.teal, () {}),
-              _serviceItem(context, Icons.science_rounded, 'مختبرات', AppColors.purple, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LabsListScreen()))),
+              _serviceItem(context, Icons.local_hospital, 'مستشفيات', AppColors.teal, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const InteractiveMapScreen(type: 'hospitals')))),
+              _serviceItem(context, Icons.science_rounded, 'مختبرات', AppColors.purple, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const InteractiveMapScreen(type: 'labs')))),
               _serviceItem(context, Icons.shield_moon, 'تأمين', AppColors.indigo, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const InsuranceCompanies()))),
-              _serviceItem(context, Icons.local_pharmacy, 'صيدلية', AppColors.success, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PharmacyScreen()))),
+              _serviceItem(context, Icons.local_pharmacy, 'صيدلية', AppColors.success, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const InteractiveMapScreen(type: 'pharmacies')))),
               _serviceItem(context, Icons.local_hospital, 'إسعاف', AppColors.error, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const EmergencyNumbers()))),
             ],
           ),
