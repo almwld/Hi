@@ -246,7 +246,7 @@ class _EyeCareScreenState extends State<EyeCareScreen> {
           return AlertDialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             title: Text('سؤال ${current + 1}/${questions.length}'),
-            content: Text(questions[current]['q']!, style: const TextStyle(fontSize: 15)),
+            content: Text((questions[current]['q'] as String), style: const TextStyle(fontSize: 15)),
             actions: [
               TextButton(onPressed: () { if (current < questions.length - 1) { setDialogState(() => current++); } else { Navigator.pop(ctx); _showAstigmatismResult(score); } }, child: const Text('لا')),
               ElevatedButton(onPressed: () { score += questions[current]['weight'] as int; if (current < questions.length - 1) { setDialogState(() => current++); } else { Navigator.pop(ctx); _showAstigmatismResult(score); } }, style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary), child: const Text('نعم')),
@@ -309,7 +309,7 @@ class _EyeCareScreenState extends State<EyeCareScreen> {
           return AlertDialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             title: Text('سؤال ${current + 1}/${questions.length}'),
-            content: Text(questions[current]['q']!, style: const TextStyle(fontSize: 15)),
+            content: Text((questions[current]['q'] as String), style: const TextStyle(fontSize: 15)),
             actions: [
               TextButton(onPressed: () { if (current < questions.length - 1) { setDialogState(() => current++); } else { Navigator.pop(ctx); _showDryEyeResult(score); } }, child: const Text('لا')),
               ElevatedButton(onPressed: () { score += questions[current]['weight'] as int; if (current < questions.length - 1) { setDialogState(() => current++); } else { Navigator.pop(ctx); _showDryEyeResult(score); } }, style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary), child: const Text('نعم')),
