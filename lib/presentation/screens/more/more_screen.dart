@@ -1,3 +1,7 @@
+import 'package:sehatak/presentation/screens/hospital_booking/hospital_booking_screen.dart';
+import 'package:sehatak/presentation/screens/health_shop/health_shop_screen.dart';
+import 'package:sehatak/presentation/screens/blood_donation/blood_donation_screen.dart';
+import 'package:sehatak/presentation/screens/vaccination/vaccination_screen.dart';
 import 'package:sehatak/presentation/screens/mental_health/mental_health_screen.dart';
 import 'package:sehatak/presentation/screens/health_tools/calorie_calculator_screen.dart';
 import 'package:sehatak/presentation/screens/family_doctor/family_doctor_screen.dart';
@@ -63,6 +67,10 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.calculate, 'حاسبة السعرات', 'احسب سعرات طعامك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CalorieCalculatorScreen()))),
           _menuItem(context, Icons.family_restroom, 'طبيب العائلة', 'متابعة صحة العائلة', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FamilyDoctorScreen()))),
           _menuItem(context, Icons.article, 'مقالات طبية', 'اقرأ أحدث المقالات', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ArticlesScreen()))),
+          _menuItem(context, Icons.calendar_month, 'حجز مستشفى', 'احجز موعد في أقرب مستشفى', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HospitalBookingScreen()))),
+          _menuItem(context, Icons.shopping_bag, 'المتجر الصحي', 'أجهزة ومعدات طبية', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthShopScreen()))),
+          _menuItem(context, Icons.bloodtype, 'التبرع بالدم', 'سجل كمتبرع أو ابحث', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonationScreen()))),
+          _menuItem(context, Icons.vaccines, 'التطعيمات', 'سجل التطعيمات الكامل', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VaccinationScreen()))),
           Text('عام', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           _menuItem(context, Icons.notifications_active, 'الإشعارات', 'تنبيهاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()))),
