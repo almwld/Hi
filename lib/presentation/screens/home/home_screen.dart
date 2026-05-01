@@ -88,7 +88,7 @@ class _HomeTab extends StatelessWidget {
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             _quickService(context, Icons.local_pharmacy, 'Pharmacy', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PharmacyScreen()))),
             _quickService(context, Icons.emergency, 'Emergency', () {}),
-            _quickService(context, Icons.video_call, 'Consultations', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChatScreen()))),
+            _quickService(context, Icons.video_call, 'Consultations', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ConsultationScreen()))),
           ]),
           const SizedBox(height: 24),
           Text('Medical History', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),

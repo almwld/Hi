@@ -59,7 +59,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
           // الأمراض المزمنة
           Text('Chronic Conditions', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
-          _conditionCard('Hypertension', 'Diagnosed: 15 Mar 2023', 'Under Control', AppColors.error, Icons.favorite_broken),
+          _conditionCard('Hypertension', 'Diagnosed: 15 Mar 2023', 'Under Control', AppColors.error, Icons.favorite_border),
           _conditionCard('Asthma', 'Diagnosed: 10 Jan 2021', 'Mild', AppColors.warning, Icons.air),
           _conditionCard('Gastritis', 'Diagnosed: 05 Aug 2019', 'Resolved', AppColors.info, Icons.restaurant),
 
