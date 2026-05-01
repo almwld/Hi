@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _screens = const [
     _HomeTab(),
     DoctorsListScreen(),
-    PatientAppointmentsPlaceholder(),
+    PatientAppointments(),
     PatientDashboardPlaceholder(),
     MoreScreen(),
   ];
@@ -275,7 +275,7 @@ class _HomeTab extends StatelessWidget {
 }
 
 // ========= عناصر نائبة =========
-class PatientAppointmentsPlaceholder extends StatelessWidget {
+// PatientAppointmentsPlaceholder removed
   const PatientAppointmentsPlaceholder({super.key});
   @override
   Widget build(BuildContext context) => const Center(child: Text('المواعيد'));
