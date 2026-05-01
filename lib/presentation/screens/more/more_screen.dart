@@ -1,3 +1,4 @@
+import 'package:sehatak/presentation/screens/vitals/vitals_dashboard_screen.dart';
 import 'package:sehatak/presentation/screens/health_calendar/health_calendar_screen.dart';
 import 'package:sehatak/presentation/screens/shared/search_screen.dart';
 import 'package:flutter/material.dart';
@@ -149,6 +150,7 @@ class MoreScreen extends StatelessWidget {
           // ========= عام =========
           _menuItem(context, Icons.calendar_month, 'التقويم الصحي', 'مواعيدك وأحداثك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthCalendarScreen()))),
           _menuItem(context, Icons.search, 'بحث متقدم', 'ابحث في كل الخدمات', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SearchScreen()))),
+          _menuItem(context, Icons.dashboard, 'المؤشرات الحيوية', 'ضغط، سكر، وزن، نوم', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const VitalsDashboardScreen()))),
           Text('عام', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           _menuItem(context, Icons.notifications_active, 'الإشعارات', 'تنبيهاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()))),
