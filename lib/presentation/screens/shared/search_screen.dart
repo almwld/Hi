@@ -35,7 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
           // الأكثر بحثاً
           Text('الأكثر بحثاً', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
-          Wrap(spacing: 6, children: _trending.map((t) => ActionChip(label: Text(t), onPressed: () {}))),
+          Wrap(spacing: 6, children: _trending.map((t) => ActionChip(label: Text(t), onPressed: () { print(t); })).toList()),
           const SizedBox(height: 20),
           // فئات
           Text('تصفح حسب', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),

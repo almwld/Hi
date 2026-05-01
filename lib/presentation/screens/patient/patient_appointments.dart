@@ -166,7 +166,7 @@ class _PatientAppointmentsState extends State<PatientAppointments> with SingleTi
     return ListView.builder(
       padding: const EdgeInsets.all(14),
       itemCount: _upcomingAppointments.length,
-      itemBuilder: (context, index) => _buildUpcomingCard(_upcomingAppointments[index]),
+      itemBuilder: (context, i) => _buildUpcomingCard(_upcomingAppointments[i]),
     );
   }
 
@@ -241,7 +241,7 @@ class _PatientAppointmentsState extends State<PatientAppointments> with SingleTi
         Row(children: [
           Expanded(
             child: OutlinedButton.icon(
-              onPressed: () => _cancelAppointment(index),
+              onPressed: () => _cancelAppointment(i),
               icon: const Icon(Icons.close, size: 16),
               label: const Text('إلغاء'),
               style: OutlinedButton.styleFrom(foregroundColor: AppColors.error, side: const BorderSide(color: AppColors.error), padding: const EdgeInsets.symmetric(vertical: 10)),
@@ -275,7 +275,7 @@ class _PatientAppointmentsState extends State<PatientAppointments> with SingleTi
     return ListView.builder(
       padding: const EdgeInsets.all(14),
       itemCount: _pastAppointments.length,
-      itemBuilder: (context, index) => _buildPastCard(_pastAppointments[index]),
+      itemBuilder: (context, i) => _buildPastCard(_pastAppointments[index]),
     );
   }
 
