@@ -26,7 +26,7 @@ class _PeriodTrackerScreenState extends State<PeriodTrackerScreen> {
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(gradient: LinearGradient(colors: [Colors.pink.shade300, Colors.purple.shade400]), borderRadius: BorderRadius.circular(16)),
           child: Column(children: [
-            const Text('اليوم $_cycleDay من 28', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
+            Text('اليوم $_cycleDay من 28', style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
             const SizedBox(height: 4),
             Container(padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5), decoration: BoxDecoration(color: Colors.white.withOpacity(0.25), borderRadius: BorderRadius.circular(12)), child: const Text('مرحلة: جريبي', style: TextStyle(color: Colors.white))),
             const SizedBox(height: 10),
