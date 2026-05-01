@@ -1,3 +1,8 @@
+import 'package:sehatak/presentation/screens/medication/medication_reminder_screen.dart';
+import 'package:sehatak/presentation/screens/health_tools/bmi_calculator_screen.dart';
+import 'package:sehatak/presentation/screens/health_tips/health_tips_screen.dart';
+import 'package:sehatak/presentation/screens/women_health/period_tracker_screen.dart';
+import 'package:sehatak/presentation/screens/home_care/home_care_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:sehatak/core/constants/app_colors.dart';
 import 'package:sehatak/presentation/screens/chat/chat_screen.dart';
@@ -45,6 +50,11 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.folder_shared, 'السجل الطبي', 'سجل صحي كامل', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PatientMedicalHistory()))),
           _menuItem(context, Icons.chat_bubble_rounded, 'استشارات', 'تحدث مع طبيب', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChatScreen()))),
           const SizedBox(height: 22),
+          _menuItem(context, Icons.alarm, 'تذكير الأدوية', 'لا تنس جرعاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const MedicationReminderScreen()))),
+          _menuItem(context, Icons.monitor_weight, 'حاسبة BMI', 'اعرف وزنك المثالي', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const BMICalculatorScreen()))),
+          _menuItem(context, Icons.tips_and_updates, 'نصائح صحية', 'نصائح يومية مفيدة', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthTipsScreen()))),
+          _menuItem(context, Icons.female, 'صحة المرأة', 'تتبع الدورة الشهرية', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PeriodTrackerScreen()))),
+          _menuItem(context, Icons.home_work, 'خدمات منزلية', 'رعاية في منزلك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HomeCareScreen()))),
           Text('عام', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           _menuItem(context, Icons.notifications_active, 'الإشعارات', 'تنبيهاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()))),
@@ -85,3 +95,5 @@ class MoreScreen extends StatelessWidget {
     );
   }
 }
+
+// تمت إضافة الاستيرادات للخدمات الجديدة في الأسفل تلقائياً
