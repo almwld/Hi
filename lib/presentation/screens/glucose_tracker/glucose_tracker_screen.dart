@@ -109,8 +109,8 @@ class _GlucoseTrackerScreenState extends State<GlucoseTrackerScreen> {
               const SizedBox(height: 10),
               Expanded(
                 child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: _weekReadings.map((r) {
-                  final morningH =(r['morning'] as int - 70) / 110 * 120;
-                  final eveningH = (r['evening'] as int - 70) / 110 * 120;
+                  final morningH =(r["morning"] as int - 70) / 110 * 120;
+                  final eveningH = (r["evening"] as int - 70) / 110 * 120;
                   return Expanded(
                     child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                       Text('${r['evening']}', style: const TextStyle(fontSize: 8, color: Colors.orange)),
