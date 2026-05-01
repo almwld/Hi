@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sehatak/core/constants/app_colors.dart';
 import 'package:sehatak/presentation/widgets/common_widgets.dart';
 import 'package:sehatak/presentation/screens/doctor/doctors_list_screen.dart';
-import 'package:sehatak/presentation/screens/chat/chat_screen.dart';
+import 'package:sehatak/presentation/screens/consultation/consultation_screen.dart';
 import 'package:sehatak/presentation/screens/pharmacy/pharmacy_screen.dart';
 import 'package:sehatak/presentation/screens/profile/profile_screen.dart';
 import 'package:sehatak/presentation/screens/patient/patient_dashboard.dart';
@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const _HomeTab(),
-    const ChatScreen(),
+    const ConsultationScreen(),
     const MoreScreen(),
     const PharmacyScreen(),
     const ProfileScreen(),
@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           unselectedItemColor: AppColors.grey,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.chat_rounded), label: 'Chat'),
+            BottomNavigationBarItem(icon: Icon(Icons.message_rounded), label: 'Consult'),
             BottomNavigationBarItem(icon: Icon(Icons.grid_view_rounded), label: 'More'),
             BottomNavigationBarItem(icon: Icon(Icons.local_pharmacy_rounded), label: 'Pharmacy'),
             BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: 'Profile'),
