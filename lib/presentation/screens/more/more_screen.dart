@@ -7,6 +7,7 @@ import 'package:sehatak/presentation/screens/patient/patient_prescriptions.dart'
 import 'package:sehatak/presentation/screens/patient/patient_appointments.dart';
 import 'package:sehatak/presentation/screens/shared/notifications_screen.dart';
 import 'package:sehatak/presentation/screens/settings/settings_screen.dart';
+import 'package:sehatak/presentation/screens/about/about_screen.dart';
 import 'package:sehatak/presentation/screens/emergencies/emergency_numbers.dart';
 import 'package:sehatak/presentation/screens/insurance/insurance_companies.dart';
 import 'package:sehatak/presentation/screens/lab/labs_list_screen.dart';
@@ -48,7 +49,7 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.notifications_active, 'الإشعارات', 'تنبيهاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()))),
           _menuItem(context, Icons.settings_rounded, 'الإعدادات', 'تفضيلات التطبيق', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen()))),
           _menuItem(context, Icons.help_outline, 'المساعدة', 'أسئلة شائعة وتواصل', () {}),
-          _menuItem(context, Icons.info_outline, 'عن صحتك', 'الإصدار 1.0.0', () {}),
+          _menuItem(context, Icons.info_outline, 'عن صحتك', 'الإصدار 1.0.0', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutScreen()))),
           _menuItem(context, Icons.star_outline_rounded, 'تقييم التطبيق', 'قيمنا على المتجر', () {}),
           _menuItem(context, Icons.share_rounded, 'مشاركة', 'شارك التطبيق', () {}),
           const SizedBox(height: 30),
