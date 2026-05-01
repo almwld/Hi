@@ -1,3 +1,4 @@
+import 'package:sehatak/presentation/screens/health_map/health_map_screen.dart';
 import 'package:sehatak/presentation/screens/physiotherapy/physiotherapy_screen.dart';
 import 'package:sehatak/presentation/screens/family_planning/family_planning_screen.dart';
 import 'package:sehatak/presentation/screens/genetic_counseling/genetic_counseling_screen.dart';
@@ -219,6 +220,7 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.family_restroom, 'تنظيم الأسرة', 'استشارات ووسائل', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FamilyPlanningScreen()))),
           _menuItem(context, Icons.biotech, 'الاستشارات الوراثية', 'فحوصات DNA', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const GeneticCounselingScreen()))),
           _menuItem(context, Icons.eco, 'الطب البديل', 'علاجات طبيعية', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AlternativeMedicineScreen()))),
+          _menuItem(context, Icons.map, 'خرائط المرافق', 'جميع المرافق الصحية', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthMapScreen()))),
           Text('عام', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           _menuItem(context, Icons.notifications_active, 'الإشعارات', 'تنبيهاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()))),

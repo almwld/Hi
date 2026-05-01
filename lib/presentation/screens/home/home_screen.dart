@@ -1,3 +1,4 @@
+import 'package:sehatak/presentation/screens/health_map/health_map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/core/constants/app_colors.dart';
@@ -93,6 +94,7 @@ class _HomeTab extends StatelessWidget {
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
             _quickService(context, Icons.local_pharmacy, 'الصيدلية', AppColors.success, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PharmacyScreen()))),
             _quickService(context, Icons.emergency, 'الطوارئ', AppColors.error, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const EmergencyNumbers()))),
+            _quickService(context, Icons.map, 'الخرائط', AppColors.teal, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthMapScreen()))),
             _quickService(context, Icons.video_call, 'استشارات', AppColors.info, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ConsultationScreen()))),
             _quickService(context, Icons.science, 'التحاليل', AppColors.purple, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PatientMedicalHistory()))),
           ]),
