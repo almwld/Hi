@@ -1,3 +1,5 @@
+import 'package:sehatak/presentation/screens/recovery_calculator/recovery_calculator_screen.dart';
+import 'package:sehatak/presentation/screens/home_lab/home_lab_screen.dart';
 import 'package:sehatak/presentation/screens/personal_medic/personal_medic_screen.dart';
 import 'package:sehatak/presentation/screens/shopping_list/shopping_list_screen.dart';
 import 'package:sehatak/presentation/screens/pill_organizer/pill_organizer_screen.dart';
@@ -175,6 +177,8 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.compare_arrows, 'مقارنة أدوية', 'قارن بين الأدوية', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DrugCompareScreen()))),
           _menuItem(context, Icons.medical_services, 'المسعف الشخصي', 'إسعافات فورية', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PersonalMedicScreen()))),
           _menuItem(context, Icons.shopping_cart, 'قائمة التسوق', 'تسوق صحي', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ShoppingListScreen()))),
+          _menuItem(context, Icons.healing, 'حاسبة التعافي', 'مدة الشفاء المتوقعة', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const RecoveryCalculatorScreen()))),
+          _menuItem(context, Icons.home_repair_service, 'فحص منزلي', 'اطلب الفحص لبابك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HomeLabScreen()))),
           Text('عام', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           _menuItem(context, Icons.notifications_active, 'الإشعارات', 'تنبيهاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()))),
