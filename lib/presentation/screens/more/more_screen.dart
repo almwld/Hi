@@ -1,3 +1,7 @@
+import 'package:sehatak/presentation/screens/privacy/privacy_screen.dart';
+import 'package:sehatak/presentation/screens/terms/terms_screen.dart';
+import 'package:sehatak/presentation/screens/permissions/permissions_screen.dart';
+import 'package:sehatak/presentation/screens/download_data/download_data_screen.dart';
 import 'package:sehatak/presentation/screens/font_size/font_size_screen.dart';
 import 'package:sehatak/presentation/screens/two_factor_auth/two_factor_auth_screen.dart';
 import 'package:sehatak/presentation/screens/change_password/change_password_screen.dart';
@@ -193,6 +197,10 @@ class MoreScreen extends StatelessWidget {
           _menuItem(context, Icons.lock_outline, 'تغيير كلمة المرور', 'تحديث كلمة المرور', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChangePasswordScreen()))),
           _menuItem(context, Icons.security, 'المصادقة الثنائية', 'حماية إضافية لحسابك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TwoFactorAuthScreen()))),
           _menuItem(context, Icons.format_size, 'حجم الخط', 'تكبير وتصغير الخط', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FontSizeScreen()))),
+          _menuItem(context, Icons.privacy_tip, 'سياسة الخصوصية', 'كيف نحمي بياناتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacyScreen()))),
+          _menuItem(context, Icons.description, 'الشروط والأحكام', 'شروط الاستخدام', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TermsScreen()))),
+          _menuItem(context, Icons.admin_panel_settings, 'الأذونات', 'إدارة أذونات التطبيق', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PermissionsScreen()))),
+          _menuItem(context, Icons.download, 'تحميل بياناتي', 'تصدير جميع بياناتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DownloadDataScreen()))),
           Text('عام', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           _menuItem(context, Icons.notifications_active, 'الإشعارات', 'تنبيهاتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationsScreen()))),
