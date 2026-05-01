@@ -14,11 +14,7 @@ class DoctorCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: AppColors.outlineVariant.withOpacity(0.4)),
-        ),
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.2), borderRadius: BorderRadius.circular(14), border: Border.all(color: AppColors.outlineVariant.withOpacity(0.4))),
         child: Row(children: [
           CircleAvatar(radius: 26, backgroundColor: AppColors.primary.withOpacity(0.1), child: const Icon(Icons.person, color: AppColors.primary, size: 28)),
           const SizedBox(width: 10),
@@ -38,42 +34,9 @@ class DoctorCard extends StatelessWidget {
   }
 }
 
-class MedicineCard extends StatelessWidget {
-  final String name, description, price, discount;
-  final VoidCallback onAddToCart;
-  const MedicineCard({required this.name, required this.description, required this.price, this.discount = '', required this.onAddToCart, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.outlineVariant.withOpacity(0.4)),
-      ),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        if (discount.isNotEmpty)
-          Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3), decoration: BoxDecoration(color: AppColors.error, borderRadius: BorderRadius.circular(6)), child: Text(discount, style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold))),
-        const SizedBox(height: 8),
-        const Icon(Icons.medication, color: AppColors.primary, size: 36),
-        const SizedBox(height: 8),
-        Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-        Text(description, style: const TextStyle(fontSize: 10, color: AppColors.grey)),
-        const SizedBox(height: 8),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text('ر.س $price', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary, fontSize: 14)),
-          ElevatedButton(onPressed: onAddToCart, style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5), minimumSize: Size.zero), child: const Text('إضافة', style: TextStyle(fontSize: 9))),
-        ]),
-      ]),
-    );
-  }
-}
-
 class CustomSearchBar extends StatelessWidget {
   final String hint;
   const CustomSearchBar({super.key, this.hint = 'بحث...'});
-
   @override
   Widget build(BuildContext context) {
     return TextField(
