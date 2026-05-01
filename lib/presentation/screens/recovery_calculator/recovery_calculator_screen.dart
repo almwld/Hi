@@ -82,7 +82,7 @@ class _RecoveryCalculatorScreenState extends State<RecoveryCalculatorScreen> {
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 4)]),
       child: Column(children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(label), Text(value, style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary))]),
-        Slider(value: value.split(' ')[0].toDouble(), min: min, max: max, activeColor: AppColors.primary, onChanged: onChange),
+        Slider(value: double.parse(value.split(' ')[0]), min: min, max: max, activeColor: AppColors.primary, onChanged: onChange),
       ]),
     );
   }

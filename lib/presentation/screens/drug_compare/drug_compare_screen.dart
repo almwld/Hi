@@ -8,75 +8,67 @@ class DrugCompareScreen extends StatefulWidget {
 }
 
 class _DrugCompareScreenState extends State<DrugCompareScreen> {
-  String _selectedDrug1 = 'باراسيتامول';
-  String _selectedDrug2 = 'إيبوبروفين';
+  String _d1 = 'باراسيتامول';
+  String _d2 = 'إيبوبروفين';
 
-  final Map<String, Map<String, String>> _drugs = {
-    'باراسيتامول': {'category': 'مسكن ألم', 'usage': 'ألم، حمى', 'onset': '30-60 دقيقة', 'duration': '4-6 ساعات', 'pregnancy': 'آمن', 'stomach': 'لطيف', 'price': 'رخيص'},
-    'إيبوبروفين': {'category': 'مضاد التهاب', 'usage': 'التهاب، ألم', 'onset': '30-60 دقيقة', 'duration': '6-8 ساعات', 'pregnancy': 'خطر', 'stomach': 'قوي', 'price': 'رخيص'},
-    'ديكلوفيناك': {'category': 'مضاد التهاب', 'usage': 'مفاصل، عضلات', 'onset': '20-30 دقيقة', 'duration': '8-12 ساعات', 'pregnancy': 'خطر', 'stomach': 'قوي جداً', 'price': 'متوسط'},
-    'نابروكسين': {'category': 'مضاد التهاب', 'usage': 'نقرس، مفاصل', 'onset': 'ساعة', 'duration': '12 ساعة', 'pregnancy': 'خطر', 'stomach': 'قوي', 'price': 'متوسط'},
-  ];
+  Map<String, String> _info(String d) {
+    switch (d) {
+      case 'باراسيتامول': return {'cat': 'مسكن ألم', 'use': 'ألم، حمى', 'onset': '30-60 دقيقة', 'dur': '4-6 ساعات', 'preg': 'آمن', 'stomach': 'لطيف', 'price': 'رخيص'};
+      case 'إيبوبروفين': return {'cat': 'مضاد التهاب', 'use': 'التهاب، ألم', 'onset': '30-60 دقيقة', 'dur': '6-8 ساعات', 'preg': 'خطر', 'stomach': 'قوي', 'price': 'رخيص'};
+      case 'ديكلوفيناك': return {'cat': 'مضاد التهاب', 'use': 'مفاصل، عضلات', 'onset': '20-30 دقيقة', 'dur': '8-12 ساعات', 'preg': 'خطر', 'stomach': 'قوي', 'price': 'متوسط'};
+      case 'نابروكسين': return {'cat': 'مضاد التهاب', 'use': 'نقرس، مفاصل', 'onset': 'ساعة', 'dur': '12 ساعة', 'preg': 'خطر', 'stomach': 'قوي', 'price': 'متوسط'};
+      default: return {'cat': '', 'use': '', 'onset': '', 'dur': '', 'preg': '', 'stomach': '', 'price': ''};
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final d1 = _drugs[_selectedDrug1]!;
-    final d2 = _drugs[_selectedDrug2]!;
-
+    final i1 = _info(_d1);
+    final i2 = _info(_d2);
     return Scaffold(
-      appBar: AppBar(title: const Text('مقارنة الأدوية', style: TextStyle(fontWeight: FontWeight.bold))),
+      appBar: AppBar(title: const Text('مقارنة الأدوية')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(14),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          // اختيار الدوائين
+        child: Column(children: [
           Row(children: [
-            Expanded(child: _drugDropdown(_selectedDrug1, (v) => setState(() => _selectedDrug1 = v!))),
-            const Padding(padding: EdgeInsets.symmetric(horizontal: 8), child: Text('VS', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: AppColors.primary))),
-            Expanded(child: _drugDropdown(_selectedDrug2, (v) => setState(() => _selectedDrug2 = v!))),
+            Expanded(child: _drop(_d1, (v) => setState(() => _d1 = v!))),
+            const Text(' VS ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: AppColors.primary)),
+            Expanded(child: _drop(_d2, (v) => setState(() => _d2 = v!))),
           ]),
           const SizedBox(height: 16),
-          // جدول المقارنة
-          Container(
-            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(14), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 6)]),
-            child: Table(
-              border: TableBorder.all(color: AppColors.outlineVariant.withOpacity(0.3)),
-              columnWidths: const {0: FlexColumnWidth(1.5), 1: FlexColumnWidth(2), 2: FlexColumnWidth(2)},
-              children: [
-                _tableRow('الميزة', _selectedDrug1, _selectedDrug2, isHeader: true),
-                _tableRow('التصنيف', d1['category']!, d2['category']!),
-                _tableRow('الاستخدام', d1['usage']!, d2['usage']!),
-                _tableRow('بدء التأثير', d1['onset']!, d2['onset']!),
-                _tableRow('المدة', d1['duration']!, d2['duration']!),
-                _tableRow('الحمل', d1['pregnancy']!, d2['pregnancy']!),
-                _tableRow('تأثير المعدة', d1['stomach']!, d2['stomach']!),
-                _tableRow('السعر', d1['price']!, d2['price']!),
-              ],
-            ),
+          Table(
+            border: TableBorder.all(color: AppColors.outlineVariant.withOpacity(0.3)),
+            children: [
+              _row('الميزة', _d1, _d2, true),
+              _row('التصنيف', i1['cat']!, i2['cat']!),
+              _row('الاستخدام', i1['use']!, i2['use']!),
+              _row('البدء', i1['onset']!, i2['onset']!),
+              _row('المدة', i1['dur']!, i2['dur']!),
+              _row('الحمل', i1['preg']!, i2['preg']!),
+              _row('المعدة', i1['stomach']!, i2['stomach']!),
+              _row('السعر', i1['price']!, i2['price']!),
+            ],
           ),
-          const SizedBox(height: 16),
-          Container(padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: AppColors.warning.withOpacity(0.05), borderRadius: BorderRadius.circular(14), border: Border.all(color: AppColors.warning.withOpacity(0.2))), child: const Text('⚠️ استشر الطبيب قبل تناول أي دواء', style: TextStyle(fontSize: 12, color: AppColors.warning))),
         ]),
       ),
     );
   }
 
-  Widget _drugDropdown(String value, Function(String?) onChanged) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(color: AppColors.surfaceContainerLow, borderRadius: BorderRadius.circular(12)),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(value: value, isExpanded: true, items: _drugs.keys.map((k) => DropdownMenuItem(value: k, child: Text(k, style: const TextStyle(fontSize: 12)))).toList(), onChanged: onChanged),
-      ),
+  Widget _drop(String val, Function(String?) cb) {
+    return DropdownButtonFormField<String>(
+      value: val,
+      items: ['باراسيتامول','إيبوبروفين','ديكلوفيناك','نابروكسين'].map((k) => DropdownMenuItem(value: k, child: Text(k, style: const TextStyle(fontSize: 13)))).toList(),
+      onChanged: cb,
     );
   }
 
-  TableRow _tableRow(String label, String v1, String v2, {bool isHeader = false}) {
+  TableRow _row(String l, String v1, String v2, [bool h = false]) {
     return TableRow(
-      decoration: isHeader ? BoxDecoration(color: AppColors.primary.withOpacity(0.08)) : null,
+      decoration: h ? BoxDecoration(color: AppColors.primary.withOpacity(0.1)) : null,
       children: [
-        Padding(padding: const EdgeInsets.all(10), child: Text(label, style: TextStyle(fontWeight: isHeader ? FontWeight.bold : FontWeight.w500, fontSize: 11))),
-        Padding(padding: const EdgeInsets.all(10), child: Text(v1, style: TextStyle(fontSize: 11, fontWeight: isHeader ? FontWeight.bold : FontWeight.normal), textAlign: TextAlign.center)),
-        Padding(padding: const EdgeInsets.all(10), child: Text(v2, style: TextStyle(fontSize: 11, fontWeight: isHeader ? FontWeight.bold : FontWeight.normal), textAlign: TextAlign.center)),
+        Padding(padding: const EdgeInsets.all(10), child: Text(l, style: TextStyle(fontWeight: h ? FontWeight.bold : FontWeight.normal, fontSize: 12))),
+        Padding(padding: const EdgeInsets.all(10), child: Text(v1, textAlign: TextAlign.center, style: const TextStyle(fontSize: 12))),
+        Padding(padding: const EdgeInsets.all(10), child: Text(v2, textAlign: TextAlign.center, style: const TextStyle(fontSize: 12))),
       ],
     );
   }

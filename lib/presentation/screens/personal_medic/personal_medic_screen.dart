@@ -13,46 +13,42 @@ class _PersonalMedicScreenState extends State<PersonalMedicScreen> {
   ];
   final TextEditingController _controller = TextEditingController();
 
-  final Map<String, String> _quickReplies = {
-    'صداع': 'خذ قسطاً من الراحة في مكان هادئ. ضع كمادات باردة على جبهتك. اشرب الماء. إذا استمر الصداع لأكثر من يوم، راجع الطبيب.',
-    'جرح': 'اغسل الجرح بماء نظيف. اضغط بقطعة قماش نظيفة لإيقاف النزيف. طهر الجرح. غطِّه بضمادة معقمة.',
-    'حروق': 'ضع المنطقة المصابة تحت ماء بارد جار لمدة 20 دقيقة. لا تضع معجون أسنان أو زبدة. غطِّ الحرق بضمادة معقمة.',
-    'حمى': 'قس درجة حرارتك. اشرب سوائل بكثرة. خذ باراسيتامول إذا تجاوزت 38.5°. راجع الطبيب إذا استمرت أكثر من 3 أيام.',
-    'إسهال': 'اشرب محاليل معالجة الجفاف. تجنب الألبان والأطعمة الدسمة. كل الموز والأرز. راجع الطبيب إذا استمر أكثر من يومين.',
-    'تقيؤ': 'توقف عن الأكل لمدة ساعتين. ثم ابدأ برشفات ماء صغيرة. تناول البسكويت المالح تدريجياً.',
-    'حساسية': 'تجنب المسبب فوراً. خذ مضاد هيستامين. إذا ظهر تورم في الوجه أو صعوبة تنفس، اتجه للطوارئ فوراً!',
-    'لدغة': 'اغسل المكان بالماء والصابون. ضع كمادات باردة. لا تحك المكان. راقب علامات التحسس.',
-  ];
+  String _reply(String q) {
+    if (q.contains('صداع')) return 'خذ قسطاً من الراحة. ضع كمادات باردة. اشرب الماء. راجع الطبيب إذا استمر.';
+    if (q.contains('جرح')) return 'اغسل الجرح بماء نظيف. اضغط لوقف النزيف. طهره وغطه بضمادة.';
+    if (q.contains('حرق')) return 'ضع تحت ماء بارد 20 دقيقة. لا تضع معجون أسنان. غط بضمادة معقمة.';
+    if (q.contains('حمى')) return 'قس حرارتك. اشرب سوائل. خذ باراسيتامول فوق 38.5. راجع طبيب إذا استمرت 3 أيام.';
+    if (q.contains('إسهال')) return 'اشرب محاليل الجفاف. تجنب الألبان. كل الموز والأرز. راجع طبيب بعد يومين.';
+    if (q.contains('تقيؤ')) return 'توقف عن الأكل ساعتين. ابدأ برشفات ماء. تناول البسكويت المالح.';
+    if (q.contains('حساسية')) return 'تجنب المسبب. خذ مضاد هيستامين. إذا تورم الوجه أو صعوبة تنفس: اتجه للطوارئ!';
+    if (q.contains('لدغة')) return 'اغسل المكان. ضع كمادات باردة. لا تحك. راقب علامات التحسس.';
+    return 'يرجى استشارة الطبيب للتشخيص الدقيق.';
+  }
 
-  void _ask(String question) {
-    setState(() => _messages.add({'role': 'user', 'text': question}));
+  void _ask(String q) {
+    setState(() => _messages.add({'role': 'user', 'text': q}));
     _controller.clear();
     Future.delayed(const Duration(seconds: 1), () {
-      String reply = 'يرجى استشارة الطبيب للتشخيص الدقيق. هل يمكنني مساعدتك في شيء آخر؟';
-      for (var entry in _quickReplies.entries) {
-        if (question.contains(entry.key)) { reply = entry.value; break; }
-      }
-      setState(() => _messages.add({'role': 'assistant', 'text': reply}));
+      setState(() => _messages.add({'role': 'assistant', 'text': _reply(q)}));
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('المسعف الشخصي ⛑️', style: TextStyle(fontWeight: FontWeight.bold)), backgroundColor: AppColors.teal, foregroundColor: Colors.white),
+      appBar: AppBar(title: const Text('المسعف الشخصي'), backgroundColor: AppColors.teal, foregroundColor: Colors.white),
       body: Column(children: [
         Expanded(
           child: ListView.builder(
             padding: const EdgeInsets.all(12),
             itemCount: _messages.length,
-            itemBuilder: (context, idx) {
-              final m = _messages[idx];
+            itemBuilder: (context, i) {
+              final m = _messages[i];
               final isUser = m['role'] == 'user';
               return Align(
                 alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
                 child: Container(
-                  margin: const EdgeInsets.only(bottom: 8),
-                  padding: const EdgeInsets.all(12),
+                  margin: const EdgeInsets.only(bottom: 8), padding: const EdgeInsets.all(12),
                   constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.78),
                   decoration: BoxDecoration(color: isUser ? AppColors.teal : AppColors.surfaceContainerLow, borderRadius: BorderRadius.circular(12)),
                   child: Text(m['text']!, style: TextStyle(color: isUser ? Colors.white : Colors.black87, fontSize: 12)),
@@ -61,11 +57,9 @@ class _PersonalMedicScreenState extends State<PersonalMedicScreen> {
             },
           ),
         ),
-        // أزرار سريعة
         Container(
-          height: 50,
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: ListView(scrollDirection: Axis.horizontal, children: _quickReplies.keys.map((k) => Padding(padding: const EdgeInsets.only(right: 6), child: ActionChip(label: Text(k, style: const TextStyle(fontSize: 10)), onPressed: () => _ask(k)))).toList()),
+          height: 45, padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: ListView(scrollDirection: Axis.horizontal, children: ['صداع','جرح','حرق','حمى','إسهال','تقيؤ','حساسية','لدغة'].map((k) => Padding(padding: const EdgeInsets.only(right: 6), child: ActionChip(label: Text(k, style: const TextStyle(fontSize: 10)), onPressed: () => _ask(k)))).toList()),
         ),
         Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 4)]), child: Row(children: [
           Expanded(child: TextField(controller: _controller, textAlign: TextAlign.right, decoration: InputDecoration(hintText: 'صف حالتك...', filled: true, fillColor: AppColors.surfaceContainerLow, border: OutlineInputBorder(borderRadius: BorderRadius.circular(24), borderSide: BorderSide.none), contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8)))),

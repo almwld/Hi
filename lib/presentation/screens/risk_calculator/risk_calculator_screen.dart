@@ -65,7 +65,7 @@ class _RiskCalculatorScreenState extends State<RiskCalculatorScreen> {
               const SizedBox(height: 4),
               Text(_riskLevel, style: const TextStyle(color: Colors.white, fontSize: 36, fontWeight: FontWeight.bold)),
               const SizedBox(height: 4),
-              const Text('للأمراض القلبية والسكتة الدماغية', style: TextStyle(color: Colors.white70, fontSize: 11, textAlign: TextAlign.center)),
+              const Text('للأمراض القلبية والسكتة الدماغية', style: TextStyle(color: Colors.white70, fontSize: 11, ),
             ]),
           ),
           const SizedBox(height: 18),
@@ -103,7 +103,7 @@ class _RiskCalculatorScreenState extends State<RiskCalculatorScreen> {
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 4)]),
       child: Column(children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(label), Text(value, style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary))]),
-        Slider(value: value.toDouble(), min: min, max: max, activeColor: AppColors.primary, onChanged: onChange),
+        Slider(value: double.parse(value), min: min, max: max, activeColor: AppColors.primary, onChanged: onChange),
       ]),
     );
   }
