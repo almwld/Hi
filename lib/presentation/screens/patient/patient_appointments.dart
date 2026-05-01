@@ -8,7 +8,7 @@ class PatientAppointments extends StatefulWidget {
 }
 
 class _PatientAppointmentsState extends State<PatientAppointments> {
-  String _selectedTab = 'Upcoming';
+  String _selectedTab = 'القادمة';
 
   final List<Map<String, dynamic>> _upcomingAppointments = [
     {
@@ -16,18 +16,18 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
       'specialty': 'Internal Medicine',
       'date': '15 May 2026',
       'time': '10:30 AM',
-      'type': 'Video Call',
-      'status': 'Confirmed',
+      'type': 'مكالمة فيديو',
+      'status': 'مؤكد',
       'image': '👩‍⚕️',
-      'location': 'Online',
+      'location': 'عبر الإنترنت',
     },
     {
       'doctor': 'Dr. Hassan Raza',
       'specialty': 'General Physician',
       'date': '18 May 2026',
       'time': '2:00 PM',
-      'type': 'In-Person',
-      'status': 'Pending',
+      'type': 'حضوري',
+      'status': 'قيد الانتظار',
       'image': '👨‍⚕️',
       'location': 'City Hospital, Room 204',
     },
@@ -36,10 +36,10 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
       'specialty': 'Pediatrician',
       'date': '22 May 2026',
       'time': '9:00 AM',
-      'type': 'Video Call',
-      'status': 'Confirmed',
+      'type': 'مكالمة فيديو',
+      'status': 'مؤكد',
       'image': '👩‍⚕️',
-      'location': 'Online',
+      'location': 'عبر الإنترنت',
     },
   ];
 
@@ -49,7 +49,7 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
       'specialty': 'Cardiologist',
       'date': '28 Apr 2026',
       'time': '11:00 AM',
-      'type': 'In-Person',
+      'type': 'حضوري',
       'diagnosis': 'Mild Hypertension',
       'prescription': true,
       'image': '👨‍⚕️',
@@ -59,7 +59,7 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
       'specialty': 'Dermatologist',
       'date': '15 Apr 2026',
       'time': '3:30 PM',
-      'type': 'Video Call',
+      'type': 'مكالمة فيديو',
       'diagnosis': 'Eczema',
       'prescription': true,
       'image': '👩‍⚕️',
@@ -69,7 +69,7 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
       'specialty': 'Orthopedic Surgeon',
       'date': '02 Apr 2026',
       'time': '5:00 PM',
-      'type': 'In-Person',
+      'type': 'حضوري',
       'diagnosis': 'Back Pain',
       'prescription': false,
       'image': '👨‍⚕️',
@@ -79,20 +79,20 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('My Appointments', style: TextStyle(fontWeight: FontWeight.bold)), actions: [IconButton(icon: const Icon(Icons.calendar_month), onPressed: () {})]),
+      appBar: AppBar(title: const Text('مواعيدي', style: TextStyle(fontWeight: FontWeight.bold)), actions: [IconButton(icon: const Icon(Icons.calendar_month), onPressed: () {})]),
       body: Column(children: [
         // تبويبات
         Container(
           margin: const EdgeInsets.all(14),
           decoration: BoxDecoration(color: AppColors.surfaceContainerLow, borderRadius: BorderRadius.circular(12)),
           child: Row(children: [
-            _tabButton('Upcoming', _selectedTab == 'Upcoming'),
-            _tabButton('Past', _selectedTab == 'Past'),
+            _tabButton('القادمة', _selectedTab == 'القادمة'),
+            _tabButton('السابقة', _selectedTab == 'السابقة'),
           ]),
         ),
         // المحتوى
         Expanded(
-          child: _selectedTab == 'Upcoming'
+          child: _selectedTab == 'القادمة'
               ? ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 14),
                   itemCount: _upcomingAppointments.length,
@@ -109,7 +109,7 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
         onPressed: () {},
         backgroundColor: AppColors.primary,
         icon: const Icon(Icons.add),
-        label: const Text('Book New'),
+        label: const Text('حجز جديد'),
       ),
     );
   }
@@ -147,7 +147,7 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
             Text(apt['doctor'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             Text(apt['specialty'], style: const TextStyle(color: AppColors.primary, fontSize: 12)),
           ])),
-          Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(color: apt['status'] == 'Confirmed' ? Colors.green.withOpacity(0.1) : Colors.orange.withOpacity(0.1), borderRadius: BorderRadius.circular(6)), child: Text(apt['status'], style: TextStyle(color: apt['status'] == 'Confirmed' ? Colors.green : Colors.orange, fontSize: 10, fontWeight: FontWeight.bold))),
+          Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4), decoration: BoxDecoration(color: apt['status'] == 'مؤكد' ? Colors.green.withOpacity(0.1) : Colors.orange.withOpacity(0.1), borderRadius: BorderRadius.circular(6)), child: Text(apt['status'], style: TextStyle(color: apt['status'] == 'مؤكد' ? Colors.green : Colors.orange, fontSize: 10, fontWeight: FontWeight.bold))),
         ]),
         const Divider(height: 24),
         Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
@@ -159,9 +159,9 @@ class _PatientAppointmentsState extends State<PatientAppointments> {
         Row(children: [const Icon(Icons.location_on, size: 14, color: AppColors.grey), const SizedBox(width: 4), Text(apt['location'], style: const TextStyle(fontSize: 11, color: AppColors.grey))]),
         const SizedBox(height: 12),
         Row(children: [
-          Expanded(child: OutlinedButton(onPressed: () {}, style: OutlinedButton.styleFrom(foregroundColor: AppColors.error, side: const BorderSide(color: AppColors.error)), child: const Text('Cancel'))),
+          Expanded(child: OutlinedButton(onPressed: () {}, style: OutlinedButton.styleFrom(foregroundColor: AppColors.error, side: const BorderSide(color: AppColors.error)), child: const Text('إلغاء'))),
           const SizedBox(width: 8),
-          Expanded(child: ElevatedButton(onPressed: () {}, style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary), child: const Text('Join Call'))),
+          Expanded(child: ElevatedButton(onPressed: () {}, style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary), child: const Text('انضم للمكالمة'))),
         ]),
       ]),
     );

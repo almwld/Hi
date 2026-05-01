@@ -8,45 +8,45 @@ class PatientMedicalHistory extends StatefulWidget {
 }
 
 class _PatientMedicalHistoryState extends State<PatientMedicalHistory> {
-  String _selectedTab = 'Lab Tests';
+  String _selectedTab = 'تحاليل';
 
   final List<Map<String, dynamic>> _labTests = [
-    {'name': 'Complete Blood Count (CBC)', 'date': '10 May 2026', 'status': 'Completed', 'result': 'Normal', 'doctor': 'Dr. Ayesha Rahman', 'price': '800', 'icon': '🩸'},
-    {'name': 'Lipid Profile', 'date': '05 May 2026', 'status': 'Completed', 'result': 'High Cholesterol', 'doctor': 'Dr. Usman Khan', 'price': '1200', 'icon': '🧪'},
-    {'name': 'Thyroid Panel', 'date': '20 Apr 2026', 'status': 'Completed', 'result': 'Normal', 'doctor': 'Dr. Hassan Raza', 'price': '1500', 'icon': '🔬'},
-    {'name': 'HbA1c', 'date': '15 Apr 2026', 'status': 'Pending', 'result': 'Awaiting', 'doctor': 'Dr. Fatima Siddiqui', 'price': '900', 'icon': '💉'},
-    {'name': 'Urine Analysis', 'date': '01 Apr 2026', 'status': 'Completed', 'result': 'Normal', 'doctor': 'Dr. Ayesha Rahman', 'price': '500', 'icon': '🧫'},
+    {'name': 'Complete Blood Count (CBC)', 'date': '10 May 2026', 'status': 'مكتمل', 'result': 'Normal', 'doctor': 'Dr. Ayesha Rahman', 'price': '800', 'icon': '🩸'},
+    {'name': 'Lipid Profile', 'date': '05 May 2026', 'status': 'مكتمل', 'result': 'High Cholesterol', 'doctor': 'Dr. Usman Khan', 'price': '1200', 'icon': '🧪'},
+    {'name': 'Thyroid Panel', 'date': '20 Apr 2026', 'status': 'مكتمل', 'result': 'Normal', 'doctor': 'Dr. Hassan Raza', 'price': '1500', 'icon': '🔬'},
+    {'name': 'HbA1c', 'date': '15 Apr 2026', 'status': 'قيد الانتظار', 'result': 'Awaiting', 'doctor': 'Dr. Fatima Siddiqui', 'price': '900', 'icon': '💉'},
+    {'name': 'Urine Analysis', 'date': '01 Apr 2026', 'status': 'مكتمل', 'result': 'Normal', 'doctor': 'Dr. Ayesha Rahman', 'price': '500', 'icon': '🧫'},
   ];
 
   final List<Map<String, dynamic>> _imaging = [
-    {'name': 'Chest X-Ray', 'date': '08 May 2026', 'status': 'Completed', 'report': 'Clear', 'doctor': 'Dr. Kamran Ahmed', 'price': '600', 'icon': '🩻'},
-    {'name': 'MRI Spine', 'date': '25 Apr 2026', 'status': 'Completed', 'report': 'Mild Disc Bulge', 'doctor': 'Dr. Kamran Ahmed', 'price': '8000', 'icon': '🔍'},
-    {'name': 'Ultrasound Abdomen', 'date': '10 Apr 2026', 'status': 'Completed', 'report': 'Normal', 'doctor': 'Dr. Hassan Raza', 'price': '1500', 'icon': '📡'},
+    {'name': 'Chest X-Ray', 'date': '08 May 2026', 'status': 'مكتمل', 'report': 'Clear', 'doctor': 'Dr. Kamran Ahmed', 'price': '600', 'icon': '🩻'},
+    {'name': 'MRI Spine', 'date': '25 Apr 2026', 'status': 'مكتمل', 'report': 'Mild Disc Bulge', 'doctor': 'Dr. Kamran Ahmed', 'price': '8000', 'icon': '🔍'},
+    {'name': 'Ultrasound Abdomen', 'date': '10 Apr 2026', 'status': 'مكتمل', 'report': 'Normal', 'doctor': 'Dr. Hassan Raza', 'price': '1500', 'icon': '📡'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Lab Tests & Imaging', style: TextStyle(fontWeight: FontWeight.bold)), actions: [IconButton(icon: const Icon(Icons.filter_list), onPressed: () {})]),
+      appBar: AppBar(title: const Text('التحاليل والأشعة', style: TextStyle(fontWeight: FontWeight.bold)), actions: [IconButton(icon: const Icon(Icons.filter_list), onPressed: () {})]),
       body: Column(children: [
         // تبويبات
         Container(
           margin: const EdgeInsets.all(14),
           decoration: BoxDecoration(color: AppColors.surfaceContainerLow, borderRadius: BorderRadius.circular(12)),
           child: Row(children: [
-            _tabButton('Lab Tests', _selectedTab == 'Lab Tests'),
-            _tabButton('Imaging', _selectedTab == 'Imaging'),
+            _tabButton('تحاليل', _selectedTab == 'تحاليل'),
+            _tabButton('أشعة', _selectedTab == 'أشعة'),
           ]),
         ),
         // بطاقات ملخصة
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14),
           child: Row(children: [
-            _summaryCard('Total Tests', '8', Icons.science, AppColors.info),
+            _summaryCard('كل الفحوصات', '8', Icons.science, AppColors.info),
             const SizedBox(width: 10),
-            _summaryCard('Completed', '6', Icons.check_circle, AppColors.success),
+            _summaryCard('مكتمل', '6', Icons.check_circle, AppColors.success),
             const SizedBox(width: 10),
-            _summaryCard('Pending', '2', Icons.pending, AppColors.warning),
+            _summaryCard('قيد الانتظار', '2', Icons.pending, AppColors.warning),
           ]),
         ),
         const SizedBox(height: 14),
@@ -54,9 +54,9 @@ class _PatientMedicalHistoryState extends State<PatientMedicalHistory> {
         Expanded(
           child: ListView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 14),
-            itemCount: _selectedTab == 'Lab Tests' ? _labTests.length : _imaging.length,
+            itemCount: _selectedTab == 'تحاليل' ? _labTests.length : _imaging.length,
             itemBuilder: (context, index) {
-              final item = _selectedTab == 'Lab Tests' ? _labTests[index] : _imaging[index];
+              final item = _selectedTab == 'تحاليل' ? _labTests[index] : _imaging[index];
               return _buildTestCard(item);
             },
           ),
@@ -66,7 +66,7 @@ class _PatientMedicalHistoryState extends State<PatientMedicalHistory> {
         onPressed: () {},
         backgroundColor: AppColors.primary,
         icon: const Icon(Icons.add),
-        label: const Text('Book Test'),
+        label: const Text('احجز فحص'),
       ),
     );
   }
@@ -112,10 +112,10 @@ class _PatientMedicalHistoryState extends State<PatientMedicalHistory> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
             decoration: BoxDecoration(
-              color: test['status'] == 'Completed' ? Colors.green.withOpacity(0.1) : Colors.orange.withOpacity(0.1),
+              color: test['status'] == 'مكتمل' ? Colors.green.withOpacity(0.1) : Colors.orange.withOpacity(0.1),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: Text(test['status'], style: TextStyle(color: test['status'] == 'Completed' ? Colors.green : Colors.orange, fontSize: 10, fontWeight: FontWeight.bold)),
+            child: Text(test['status'], style: TextStyle(color: test['status'] == 'مكتمل' ? Colors.green : Colors.orange, fontSize: 10, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(height: 4),
           if (test['result'] != null) ...[

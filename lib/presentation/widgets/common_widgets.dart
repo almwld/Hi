@@ -6,15 +6,7 @@ class DoctorCard extends StatelessWidget {
   final double rating;
   final int reviews;
   final VoidCallback onTap;
-  const DoctorCard({
-    super.key,
-    required this.name,
-    required this.specialty,
-    required this.experience,
-    this.rating = 4.5,
-    this.reviews = 100,
-    required this.onTap,
-  });
+  const DoctorCard({required this.name, required this.specialty, required this.experience, this.rating = 4.5, this.reviews = 100, required this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +20,15 @@ class DoctorCard extends StatelessWidget {
           border: Border.all(color: AppColors.outlineVariant.withOpacity(0.4)),
         ),
         child: Row(children: [
-          CircleAvatar(radius: 28, backgroundColor: AppColors.primary.withOpacity(0.1), child: const Icon(Icons.person, color: AppColors.primary, size: 30)),
-          const SizedBox(width: 12),
+          CircleAvatar(radius: 26, backgroundColor: AppColors.primary.withOpacity(0.1), child: const Icon(Icons.person, color: AppColors.primary, size: 28)),
+          const SizedBox(width: 10),
           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-            const SizedBox(height: 2),
-            Text(specialty, style: const TextStyle(color: AppColors.grey, fontSize: 12)),
-            const SizedBox(height: 2),
-            Text(experience, style: const TextStyle(color: AppColors.darkGrey, fontSize: 11)),
+            Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+            Text(specialty, style: const TextStyle(color: AppColors.grey, fontSize: 11)),
+            Text(experience, style: const TextStyle(color: AppColors.darkGrey, fontSize: 10)),
             Row(children: [
-              const Icon(Icons.star, color: AppColors.amber, size: 14),
-              Text(' $rating ($reviews reviews)', style: const TextStyle(fontSize: 11, color: AppColors.darkGrey)),
+              const Icon(Icons.star, color: AppColors.amber, size: 13),
+              Text(' $rating ($reviews تقييم)', style: const TextStyle(fontSize: 10, color: AppColors.darkGrey)),
             ]),
           ])),
           const Icon(Icons.chevron_left, color: AppColors.grey),
@@ -51,14 +41,7 @@ class DoctorCard extends StatelessWidget {
 class MedicineCard extends StatelessWidget {
   final String name, description, price, discount;
   final VoidCallback onAddToCart;
-  const MedicineCard({
-    super.key,
-    required this.name,
-    required this.description,
-    required this.price,
-    this.discount = '',
-    required this.onAddToCart,
-  });
+  const MedicineCard({required this.name, required this.description, required this.price, this.discount = '', required this.onAddToCart, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -71,17 +54,16 @@ class MedicineCard extends StatelessWidget {
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         if (discount.isNotEmpty)
-          Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3), decoration: BoxDecoration(color: AppColors.error, borderRadius: BorderRadius.circular(6)), child: Text(discount, style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold))),
+          Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3), decoration: BoxDecoration(color: AppColors.error, borderRadius: BorderRadius.circular(6)), child: Text(discount, style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold))),
         const SizedBox(height: 8),
-        const Icon(Icons.medication, color: AppColors.primary, size: 40),
+        const Icon(Icons.medication, color: AppColors.primary, size: 36),
         const SizedBox(height: 8),
-        Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-        const SizedBox(height: 2),
+        Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
         Text(description, style: const TextStyle(fontSize: 10, color: AppColors.grey)),
         const SizedBox(height: 8),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text('Rs. $price', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary, fontSize: 14)),
-          ElevatedButton(onPressed: onAddToCart, style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), minimumSize: Size.zero), child: const Text('Add to Cart', style: TextStyle(fontSize: 10))),
+          Text('ر.س $price', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary, fontSize: 14)),
+          ElevatedButton(onPressed: onAddToCart, style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5), minimumSize: Size.zero), child: const Text('إضافة', style: TextStyle(fontSize: 9))),
         ]),
       ]),
     );
@@ -90,18 +72,19 @@ class MedicineCard extends StatelessWidget {
 
 class CustomSearchBar extends StatelessWidget {
   final String hint;
-  const CustomSearchBar({super.key, this.hint = 'Search...'});
+  const CustomSearchBar({super.key, this.hint = 'بحث...'});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      textAlign: TextAlign.right,
       decoration: InputDecoration(
         hintText: hint,
         prefixIcon: const Icon(Icons.search, color: AppColors.grey),
         filled: true,
         fillColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide.none),
-        contentPadding: const EdgeInsets.symmetric(vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(vertical: 13),
       ),
     );
   }

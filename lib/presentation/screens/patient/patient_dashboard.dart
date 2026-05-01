@@ -11,7 +11,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Health File', style: TextStyle(fontWeight: FontWeight.bold)), actions: [IconButton(icon: const Icon(Icons.share), onPressed: () {}), IconButton(icon: const Icon(Icons.more_vert), onPressed: () {})]),
+      appBar: AppBar(title: const Text('الملف الصحي', style: TextStyle(fontWeight: FontWeight.bold)), actions: [IconButton(icon: const Icon(Icons.share), onPressed: () {}), IconButton(icon: const Icon(Icons.more_vert), onPressed: () {})]),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(14),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -29,10 +29,10 @@ class _PatientDashboardState extends State<PatientDashboard> {
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(color: Colors.white.withOpacity(0.15), borderRadius: BorderRadius.circular(12)),
                 child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                  _vitalStat('🩸', 'Blood', 'O+'),
-                  _vitalStat('⚖️', 'Weight', '72 kg'),
-                  _vitalStat('📏', 'Height', '175 cm'),
-                  _vitalStat('🎂', 'Age', '29 Yrs'),
+                  _vitalStat('🩸', 'الدم', 'O+'),
+                  _vitalStat('⚖️', 'الوزن', '72 kg'),
+                  _vitalStat('📏', 'الطول', '175 cm'),
+                  _vitalStat('🎂', 'العمر', '29 Yrs'),
                 ]),
               ),
             ]),
@@ -47,9 +47,9 @@ class _PatientDashboardState extends State<PatientDashboard> {
               Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.amber.withOpacity(0.2), shape: BoxShape.circle), child: const Icon(Icons.stars, color: AppColors.amber, size: 28)),
               const SizedBox(width: 14),
               Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                const Text('Loyalty Points', style: TextStyle(fontWeight: FontWeight.bold)),
+                const Text('نقاط الولاء', style: TextStyle(fontWeight: FontWeight.bold)),
                 const Text('1,250 Points', style: TextStyle(color: AppColors.amber, fontSize: 22, fontWeight: FontWeight.bold)),
-                const Text('Earn more with each visit!', style: TextStyle(fontSize: 10, color: AppColors.grey)),
+                const Text('اكسب المزيد مع كل زيارة!', style: TextStyle(fontSize: 10, color: AppColors.grey)),
               ])),
               const Icon(Icons.chevron_left),
             ]),
@@ -57,16 +57,16 @@ class _PatientDashboardState extends State<PatientDashboard> {
           const SizedBox(height: 20),
 
           // الأمراض المزمنة
-          Text('Chronic Conditions', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+          Text('الأمراض المزمنة', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
-          _conditionCard('Hypertension', 'Diagnosed: 15 Mar 2023', 'Under Control', AppColors.error, Icons.favorite_border),
-          _conditionCard('Asthma', 'Diagnosed: 10 Jan 2021', 'Mild', AppColors.warning, Icons.air),
-          _conditionCard('Gastritis', 'Diagnosed: 05 Aug 2019', 'Resolved', AppColors.info, Icons.restaurant),
+          _conditionCard('Hypertension', 'Diagnosed: 15 Mar 2023', 'تحت السيطرة', AppColors.error, Icons.favorite_border),
+          _conditionCard('Asthma', 'Diagnosed: 10 Jan 2021', 'خفيف', AppColors.warning, Icons.air),
+          _conditionCard('Gastritis', 'Diagnosed: 05 Aug 2019', 'تم الشفاء', AppColors.info, Icons.restaurant),
 
           const SizedBox(height: 20),
 
           // التطعيمات
-          Text('Vaccinations', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+          Text('التطعيمات', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.all(14),
@@ -85,7 +85,7 @@ class _PatientDashboardState extends State<PatientDashboard> {
           const SizedBox(height: 20),
 
           // الحساسية
-          Text('Allergies', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+          Text('الحساسية', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 10),
           Wrap(spacing: 8, runSpacing: 8, children: [
             _allergyChip('🥜', 'Peanuts', AppColors.error),

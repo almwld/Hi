@@ -9,36 +9,36 @@ class PharmacyScreen extends StatefulWidget {
 
 class _PharmacyScreenState extends State<PharmacyScreen> {
   final TextEditingController _searchController = TextEditingController();
-  String _selectedCategory = 'All';
+  String _selectedCategory = 'الكل';
   int _cartCount = 0;
 
   final List<Map<String, dynamic>> _categories = [
-    {'icon': Icons.medication, 'name': 'All', 'color': AppColors.primary},
-    {'icon': Icons.receipt, 'name': 'Prescription', 'color': AppColors.error},
+    {'icon': Icons.medication, 'name': 'الكل', 'color': AppColors.primary},
+    {'icon': Icons.receipt, 'name': 'وصفة طبية', 'color': AppColors.error},
     {'icon': Icons.store, 'name': 'OTC', 'color': AppColors.info},
-    {'icon': Icons.energy_savings_leaf, 'name': 'Vitamins', 'color': AppColors.success},
-    {'icon': Icons.face, 'name': 'Personal Care', 'color': AppColors.purple},
-    {'icon': Icons.child_care, 'name': 'Baby Care', 'color': AppColors.pink},
+    {'icon': Icons.energy_savings_leaf, 'name': 'فيتامينات', 'color': AppColors.success},
+    {'icon': Icons.face, 'name': 'عناية شخصية', 'color': AppColors.purple},
+    {'icon': Icons.child_care, 'name': 'عناية بالأطفال', 'color': AppColors.pink},
   ];
 
   final List<Map<String, dynamic>> _medicines = [
     {'name': 'Panadol Extra', 'desc': 'Paracetamol 500mg', 'tablets': '24 Tablets', 'price': 120, 'oldPrice': 150, 'discount': '20%', 'image': '💊', 'category': 'OTC', 'brand': 'GSK'},
-    {'name': 'Supradyn Daily', 'desc': 'Multivitamin', 'tablets': '30 Tablets', 'price': 1275, 'oldPrice': 1500, 'discount': '15%', 'image': '💊', 'category': 'Vitamins', 'brand': 'Bayer'},
-    {'name': 'Augmentin 625mg', 'desc': 'Amoxicillin + Clavulanic', 'tablets': '10 Tablets', 'price': 1162, 'oldPrice': 1550, 'discount': '25%', 'image': '💊', 'category': 'Prescription', 'brand': 'GSK'},
+    {'name': 'Supradyn Daily', 'desc': 'Multivitamin', 'tablets': '30 Tablets', 'price': 1275, 'oldPrice': 1500, 'discount': '15%', 'image': '💊', 'category': 'فيتامينات', 'brand': 'Bayer'},
+    {'name': 'Augmentin 625mg', 'desc': 'Amoxicillin + Clavulanic', 'tablets': '10 Tablets', 'price': 1162, 'oldPrice': 1550, 'discount': '25%', 'image': '💊', 'category': 'وصفة طبية', 'brand': 'GSK'},
     {'name': 'Voltral Emulgel', 'desc': 'Diclofenac Gel', 'tablets': '50g', 'price': 585, 'oldPrice': 650, 'discount': '10%', 'image': '🧴', 'category': 'OTC', 'brand': 'Novartis'},
-    {'name': 'Becovit', 'desc': 'Vitamin B-Complex', 'tablets': '20 Tablets', 'price': 280, 'oldPrice': 350, 'discount': '20%', 'image': '💊', 'category': 'Vitamins', 'brand': 'Pharmatec'},
-    {'name': 'Calci-D', 'desc': 'Calcium + Vitamin D3', 'tablets': '30 Tablets', 'price': 850, 'oldPrice': 1000, 'discount': '15%', 'image': '💊', 'category': 'Vitamins', 'brand': 'Bayer'},
-    {'name': 'Risek 40mg', 'desc': 'Omeprazole', 'tablets': '14 Capsules', 'price': 540, 'oldPrice': 600, 'discount': '10%', 'image': '💊', 'category': 'Prescription', 'brand': 'Getz Pharma'},
-    {'name': 'Pampers Premium', 'desc': 'Diapers Size 4', 'tablets': '54 Pcs', 'price': 2400, 'oldPrice': 2800, 'discount': '14%', 'image': '👶', 'category': 'Baby Care', 'brand': 'Pampers'},
-    {'name': 'Nivea Soft Cream', 'desc': 'Moisturizer', 'tablets': '200ml', 'price': 650, 'oldPrice': 750, 'discount': '13%', 'image': '🧴', 'category': 'Personal Care', 'brand': 'Nivea'},
-    {'name': 'Surbex Z', 'desc': 'Zinc + Multivitamin', 'tablets': '30 Tablets', 'price': 350, 'oldPrice': 400, 'discount': '12%', 'image': '💊', 'category': 'Vitamins', 'brand': 'Abbott'},
+    {'name': 'Becovit', 'desc': 'Vitamin B-Complex', 'tablets': '20 Tablets', 'price': 280, 'oldPrice': 350, 'discount': '20%', 'image': '💊', 'category': 'فيتامينات', 'brand': 'Pharmatec'},
+    {'name': 'Calci-D', 'desc': 'Calcium + Vitamin D3', 'tablets': '30 Tablets', 'price': 850, 'oldPrice': 1000, 'discount': '15%', 'image': '💊', 'category': 'فيتامينات', 'brand': 'Bayer'},
+    {'name': 'Risek 40mg', 'desc': 'Omeprazole', 'tablets': '14 Capsules', 'price': 540, 'oldPrice': 600, 'discount': '10%', 'image': '💊', 'category': 'وصفة طبية', 'brand': 'Getz Pharma'},
+    {'name': 'Pampers Premium', 'desc': 'Diapers Size 4', 'tablets': '54 Pcs', 'price': 2400, 'oldPrice': 2800, 'discount': '14%', 'image': '👶', 'category': 'عناية بالأطفال', 'brand': 'Pampers'},
+    {'name': 'Nivea Soft Cream', 'desc': 'Moisturizer', 'tablets': '200ml', 'price': 650, 'oldPrice': 750, 'discount': '13%', 'image': '🧴', 'category': 'عناية شخصية', 'brand': 'Nivea'},
+    {'name': 'Surbex Z', 'desc': 'Zinc + Multivitamin', 'tablets': '30 Tablets', 'price': 350, 'oldPrice': 400, 'discount': '12%', 'image': '💊', 'category': 'فيتامينات', 'brand': 'Abbott'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pharmacy', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text('الصيدلية', style: TextStyle(fontWeight: FontWeight.bold)),
         actions: [
           Stack(
             children: [
@@ -58,7 +58,7 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
             TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                hintText: 'Search medicines, brands...',
+                hintText: 'ابحث عن أدوية، علامات تجارية...',
                 prefixIcon: const Icon(Icons.search, color: AppColors.grey),
                 filled: true,
                 fillColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.4),
@@ -73,8 +73,8 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
               child: Row(children: [
                 const Icon(Icons.location_on, color: AppColors.primary, size: 18),
                 const SizedBox(width: 6),
-                const Expanded(child: Text('Deliver to: Home - Block 7, Clifton', style: TextStyle(fontSize: 12))),
-                TextButton.icon(onPressed: () {}, icon: const Icon(Icons.edit, size: 14), label: const Text('Change', style: TextStyle(fontSize: 11))),
+                const Expanded(child: Text('التوصيل إلى: Home - Block 7, Clifton', style: TextStyle(fontSize: 12))),
+                TextButton.icon(onPressed: () {}, icon: const Icon(Icons.edit, size: 14), label: const Text('تغيير', style: TextStyle(fontSize: 11))),
               ]),
             ),
           ]),
