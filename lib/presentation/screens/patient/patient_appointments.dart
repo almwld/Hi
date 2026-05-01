@@ -166,11 +166,11 @@ class _PatientAppointmentsState extends State<PatientAppointments> with SingleTi
     return ListView.builder(
       padding: const EdgeInsets.all(14),
       itemCount: _upcomingAppointments.length,
-      itemBuilder: (context, idx) => _buildUpcomingCard(_upcomingAppointments[idx]),
+      itemBuilder: (context, idx) => _buildUpcomingCard(_upcomingAppointments[idx], idx),
     );
   }
 
-  Widget _buildUpcomingCard(Map<String, dynamic> apt) {
+  Widget _buildUpcomingCard(Map<String, dynamic> apt, int idx) {
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
       padding: const EdgeInsets.all(16),
