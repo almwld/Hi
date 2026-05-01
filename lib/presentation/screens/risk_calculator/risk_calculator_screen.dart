@@ -65,7 +65,7 @@ class _RiskCalculatorScreenState extends State<RiskCalculatorScreen> {
               const SizedBox(height: 4),
               Text(_riskLevel, style: const TextStyle(color: Colors.white, fontSize: 36, fontWeight: FontWeight.bold)),
               const SizedBox(height: 4),
-              const Text('للأمراض القلبية والسكتة الدماغية', style: TextStyle(color: Colors.white70, fontSize: 11),
+              const Text('للأمراض القلبية والسكتة الدماغية', style: TextStyle(color: Colors.white70, fontSize: 11))
             ]),
           ),
           const SizedBox(height: 18),
