@@ -1,89 +1,61 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_strings.dart';
-import '../../../core/constants/app_dimensions.dart';
+import 'package:sehatak/core/constants/app_colors.dart';
 
-class NotificationsScreen extends StatelessWidget {
+class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
+  @override
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
+}
+
+class _NotificationsScreenState extends State<NotificationsScreen> {
+  final List<Map<String, dynamic>> _notifications = [
+    {'title': 'Appointment Reminder', 'message': 'You have an appointment with Dr. Ayesha Rahman tomorrow at 10:30 AM', 'time': '5 min ago', 'icon': Icons.calendar_today, 'color': AppColors.primary, 'read': false},
+    {'title': 'Lab Results Ready', 'message': 'Your CBC test results are now available. Tap to view.', 'time': '1 hour ago', 'icon': Icons.science, 'color': AppColors.info, 'read': false},
+    {'title': 'Prescription Renewed', 'message': 'Dr. Hassan Raza has renewed your prescription for Hypertension medication.', 'time': '3 hours ago', 'icon': Icons.receipt, 'color': AppColors.success, 'read': false},
+    {'title': 'Health Tip', 'message': 'Drink 8 glasses of water daily for better health!', 'time': 'Yesterday', 'icon': Icons.tips_and_updates, 'color': AppColors.amber, 'read': true},
+    {'title': 'New Offer', 'message': '20% off on all lab tests at Aga Khan Lab. Limited time!', 'time': '2 days ago', 'icon': Icons.local_offer, 'color': AppColors.purple, 'read': true},
+    {'title': 'Video Call Reminder', 'message': 'Your video consultation with Dr. Usman Khan starts in 30 minutes.', 'time': '2 days ago', 'icon': Icons.videocam, 'color': AppColors.teal, 'read': true},
+    {'title': 'Insurance Claim', 'message': 'Your claim #SH-2024-089 has been approved by Jubilee Insurance.', 'time': '3 days ago', 'icon': Icons.shield, 'color': AppColors.indigo, 'read': true},
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final notifications = [
-      {'title': 'تذكير بموعد طبي', 'body': 'لديك موعد مع د. أحمد علي غداً الساعة 10:00 ص', 'time': 'منذ 5 دقائق', 'icon': Icons.calendar_today, 'color': AppColors.primary, 'read': false},
-      {'title': 'نتائج تحليل جاهزة', 'body': 'نتائج تحليل CBC جاهزة للاطلاع', 'time': 'منذ ساعة', 'icon': Icons.science, 'color': AppColors.info, 'read': false},
-      {'title': 'عرض خاص', 'body': 'خصم 20% على الفحوصات الشاملة في مختبر البرج', 'time': 'منذ 3 ساعات', 'icon': Icons.local_offer, 'color': AppColors.warning, 'read': true},
-      {'title': 'تذكير بالدواء', 'body': 'حان وقت تناول أملوديبين', 'time': 'منذ 5 ساعات', 'icon': Icons.medication, 'color': AppColors.success, 'read': true},
-      {'title': 'تم تأكيد الحجز', 'body': 'تم تأكيد حجزك مع د. سارة محمد', 'time': 'أمس', 'icon': Icons.check_circle, 'color': AppColors.success, 'read': true},
-    ];
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppStrings.notifications),
-        actions: [
-          TextButton(
-            onPressed: () {},
-            child: const Text('تحديد الكل مقروء', style: TextStyle(fontSize: 12)),
-          ),
-        ],
+        title: const Text('Notifications', style: TextStyle(fontWeight: FontWeight.bold)),
+        actions: [TextButton(onPressed: () => setState(() { for (var n in _notifications) { n['read'] = true; } }), child: const Text('Mark All Read'))],
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(AppDimensions.paddingL),
-        itemCount: notifications.length,
+      body: ListView.separated(
+        padding: const EdgeInsets.all(12),
+        itemCount: _notifications.length,
+        separatorBuilder: (_, __) => const SizedBox(height: 6),
         itemBuilder: (context, index) {
-          final notification = notifications[index];
+          final n = _notifications[index];
           return Container(
-            margin: const EdgeInsets.only(bottom: 12),
-            padding: const EdgeInsets.all(AppDimensions.paddingL),
+            padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: (notification['read'] as bool)
-                  ? Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3)
-                  : (notification['color'] as Color).withOpacity(0.05),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: (notification['read'] as bool) ? AppColors.outlineVariant.withOpacity(0.5) : (notification['color'] as Color).withOpacity(0.3),
-                width: (notification['read'] as bool) ? 1 : 1.5,
+              color: n['read'] ? Colors.transparent : (n['color'] as Color).withOpacity(0.04),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: n['read'] ? AppColors.outlineVariant.withOpacity(0.3) : (n['color'] as Color).withOpacity(0.2)),
+            ),
+            child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(color: (n['color'] as Color).withOpacity(0.1), shape: BoxShape.circle),
+                child: Icon(n['icon'], color: n['color'], size: 20),
               ),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(color: (notification['color'] as Color).withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
-                  child: Icon(notification['icon'] as IconData, color: notification['color'] as Color, size: 24),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              notification['title'] as String,
-                              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                    fontWeight: (notification['read'] as bool) ? FontWeight.normal : FontWeight.w600,
-                                  ),
-                            ),
-                          ),
-                          if (!(notification['read'] as bool))
-                            Container(
-                              width: 8,
-                              height: 8,
-                              decoration: BoxDecoration(color: notification['color'] as Color, shape: BoxShape.circle),
-                            ),
-                        ],
-                      ),
-                      const SizedBox(height: 4),
-                      Text(notification['body'] as String, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.darkGrey)),
-                      const SizedBox(height: 4),
-                      Text(notification['time'] as String, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.grey, fontSize: 10)),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              const SizedBox(width: 12),
+              Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Row(children: [
+                  if (!n['read']) Container(width: 8, height: 8, decoration: const BoxDecoration(color: AppColors.primary, shape: BoxShape.circle)),
+                  if (!n['read']) const SizedBox(width: 6),
+                  Expanded(child: Text(n['title'], style: TextStyle(fontWeight: n['read'] ? FontWeight.normal : FontWeight.bold, fontSize: 14))),
+                  Text(n['time'], style: const TextStyle(fontSize: 10, color: AppColors.grey)),
+                ]),
+                const SizedBox(height: 4),
+                Text(n['message'], style: const TextStyle(fontSize: 12, color: AppColors.darkGrey)),
+              ])),
+            ]),
           );
         },
       ),
