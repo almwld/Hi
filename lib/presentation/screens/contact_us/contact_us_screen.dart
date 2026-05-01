@@ -62,7 +62,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 labelText: 'الرسالة',
                 hintText: 'اكتب رسالتك هنا...',
                 prefixIcon: Icon(Icons.message),
-                border: const OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               ),
             ),
           ),
@@ -95,7 +95,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 4)]),
-      child: TextField(controller: controller, keyboardType: keyboardType, textAlign: TextAlign.right, decoration: InputDecoration(labelText: label, prefixIcon: Icon(icon), border: const OutlineInputBorder(borderRadius: BorderRadius.circular(10)))),
+      child: TextField(controller: controller, keyboardType: keyboardType, textAlign: TextAlign.right, decoration: InputDecoration(labelText: label, prefixIcon: Icon(icon), border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)))),
     );
   }
 
