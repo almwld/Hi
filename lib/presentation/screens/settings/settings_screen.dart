@@ -127,7 +127,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Padding(padding: const EdgeInsets.only(bottom: 8, right: 4), child: Text(title, style: const TextStyle(fontSize: 13, color: AppColors.grey, fontWeight: FontWeight.w600)));
   }
 
-  Widget _menuItem(IconData icon, String title, String subtitle, VoidCallback onTap, {bool isDanger = false, bool? switchValue, Function(bool)? onSwitch}) {
+  Widget _menuItem(IconData icon, String title, String subtitle, {VoidCallback? onTap, bool isDanger = false, bool? switchValue, Function(bool)? onSwitch}) {
     if (switchValue != null && onSwitch != null) {
       return Card(
         margin: const EdgeInsets.only(bottom: 4), elevation: 0,
