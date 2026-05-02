@@ -55,11 +55,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
           // ========== الحساب ==========
           _sectionTitle('الحساب'),
-          _menuItem(Icons.person_outline, 'تعديل الملف الشخصي', 'الاسم، البريد، الهاتف', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const EditProfileScreen()))),
-          _menuItem(Icons.lock_outline, 'تغيير كلمة المرور', 'تحديث كلمة المرور', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChangePasswordScreen()))),
-          _menuItem(Icons.security, 'المصادقة الثنائية', 'تعزيز أمان حسابك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TwoFactorAuthScreen()))),
+          _menuItem(Icons.person_outline, 'تعديل الملف الشخصي', 'الاسم، البريد، الهاتف', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const EditProfileScreen()))),
+          _menuItem(Icons.lock_outline, 'تغيير كلمة المرور', 'تحديث كلمة المرور', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChangePasswordScreen()))),
+          _menuItem(Icons.security, 'المصادقة الثنائية', 'تعزيز أمان حسابك', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TwoFactorAuthScreen()))),
           _menuItem(Icons.fingerprint, 'بصمة الإصبع', 'تسجيل الدخول بالبصمة', switchValue: _biometric, onSwitch: (v) => setState(() => _biometric = v)),
-          _menuItem(Icons.delete_outline, 'حذف الحساب', 'حذف نهائي للبيانات', () {}, isDanger: true),
+          _menuItem(Icons.delete_outline, 'حذف الحساب', 'حذف نهائي للبيانات', onTap: () {}, isDanger: true),
           const SizedBox(height: 22),
 
           // ========== التفضيلات ==========
@@ -79,7 +79,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             },
           ),
           _menuItem(Icons.notifications_active, 'الإشعارات', 'تفعيل التنبيهات', switchValue: _notifications, onSwitch: (v) => setState(() => _notifications = v)),
-          _menuItem(Icons.language, 'اللغة', _language, () => _showLanguagePicker()),
+          _menuItem(Icons.language, 'اللغة', _language, onTap: () => _showLanguagePicker()),
           _menuItem(Icons.format_size, 'حجم الخط', 'متوسط', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FontSizeScreen()))),
           _menuItem(Icons.color_lens, 'ثيم التطبيق', 'أخضر (افتراضي)', onTap: () {}),
           const SizedBox(height: 22),
