@@ -80,30 +80,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           _menuItem(Icons.notifications_active, 'الإشعارات', 'تفعيل التنبيهات', switchValue: _notifications, onSwitch: (v) => setState(() => _notifications = v)),
           _menuItem(Icons.language, 'اللغة', _language, () => _showLanguagePicker()),
-          _menuItem(Icons.format_size, 'حجم الخط', 'متوسط', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FontSizeScreen()))),
-          _menuItem(Icons.color_lens, 'ثيم التطبيق', 'أخضر (افتراضي)', () {}),
+          _menuItem(Icons.format_size, 'حجم الخط', 'متوسط', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const FontSizeScreen()))),
+          _menuItem(Icons.color_lens, 'ثيم التطبيق', 'أخضر (افتراضي)', onTap: () {}),
           const SizedBox(height: 22),
 
           // ========== الخصوصية والأمان ==========
           _sectionTitle('الخصوصية والأمان'),
-          _menuItem(Icons.privacy_tip_outlined, 'سياسة الخصوصية', 'كيف نحمي بياناتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacyScreen()))),
-          _menuItem(Icons.description_outlined, 'الشروط والأحكام', 'شروط استخدام التطبيق', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TermsScreen()))),
-          _menuItem(Icons.admin_panel_settings, 'الأذونات', 'إدارة أذونات التطبيق', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PermissionsScreen()))),
-          _menuItem(Icons.download_done, 'تحميل بياناتي', 'تصدير جميع بياناتك', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DownloadDataScreen()))),
+          _menuItem(Icons.privacy_tip_outlined, 'سياسة الخصوصية', 'كيف نحمي بياناتك', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PrivacyScreen()))),
+          _menuItem(Icons.description_outlined, 'الشروط والأحكام', 'شروط استخدام التطبيق', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const TermsScreen()))),
+          _menuItem(Icons.admin_panel_settings, 'الأذونات', 'إدارة أذونات التطبيق', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PermissionsScreen()))),
+          _menuItem(Icons.download_done, 'تحميل بياناتي', 'تصدير جميع بياناتك', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DownloadDataScreen()))),
           const SizedBox(height: 22),
 
           // ========== الدعم والمساعدة ==========
           _sectionTitle('الدعم والمساعدة'),
-          _menuItem(Icons.help_outline, 'مركز المساعدة', 'أسئلة شائعة', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HelpCenterScreen()))),
-          _menuItem(Icons.headset_mic, 'تواصل معنا', 'راسل فريق الدعم', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ContactUsScreen()))),
-          _menuItem(Icons.bug_report, 'الإبلاغ عن مشكلة', 'ساعدنا في التحسين', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ReportIssueScreen()))),
-          _menuItem(Icons.star_rate, 'تقييم التطبيق', 'قيمنا على المتجر', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const RateAppScreen()))),
+          _menuItem(Icons.help_outline, 'مركز المساعدة', 'أسئلة شائعة', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HelpCenterScreen()))),
+          _menuItem(Icons.headset_mic, 'تواصل معنا', 'راسل فريق الدعم', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ContactUsScreen()))),
+          _menuItem(Icons.bug_report, 'الإبلاغ عن مشكلة', 'ساعدنا في التحسين', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ReportIssueScreen()))),
+          _menuItem(Icons.star_rate, 'تقييم التطبيق', 'قيمنا على المتجر', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const RateAppScreen()))),
           const SizedBox(height: 22),
 
           // ========== حول التطبيق ==========
           _sectionTitle('حول التطبيق'),
-          _menuItem(Icons.info_outline, 'عن صحتك', 'الإصدار 1.0.0', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutScreen()))),
-          _menuItem(Icons.share_rounded, 'مشاركة التطبيق', 'انشر الفائدة', () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ShareAppScreen()))),
+          _menuItem(Icons.info_outline, 'عن صحتك', 'الإصدار 1.0.0', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutScreen()))),
+          _menuItem(Icons.share_rounded, 'مشاركة التطبيق', 'انشر الفائدة', onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ShareAppScreen()))),
           const SizedBox(height: 22),
 
           // ========== تسجيل الخروج ==========
