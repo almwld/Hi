@@ -116,7 +116,18 @@ class PharmacyShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       const Padding(padding: EdgeInsets.all(10), child: ShimmerContainer(height: 44, borderRadius: 12)),
-      SizedBox(height: 40, child: Row(children: [SizedBox(width: 10)] + List.generate(6, (_) => const Padding(padding: EdgeInsets.only(right: 6), child: ShimmerContainer(width: 70, height: 32, borderRadius: 16))))),
+      SizedBox(
+        height: 40,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          itemCount: 6,
+          itemBuilder: (_, __) => const Padding(
+            padding: EdgeInsets.only(right: 6),
+            child: ShimmerContainer(width: 70, height: 32, borderRadius: 16),
+          ),
+        ),
+      ),
       Expanded(child: GridView.builder(padding: const EdgeInsets.all(10), gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.68, crossAxisSpacing: 8, mainAxisSpacing: 8), itemCount: 6, itemBuilder: (_, __) => Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(14)), child: const Column(children: [
         ShimmerContainer(width: 40, height: 40, borderRadius: 20),
         SizedBox(height: 6),
