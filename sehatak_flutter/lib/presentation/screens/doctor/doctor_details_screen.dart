@@ -126,7 +126,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> with SingleTi
   Widget _reviewsTab() {
     return SingleChildScrollView(padding: const EdgeInsets.all(14), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       _sectionTitle('تقييم الطبيب'),
-      Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(color: AppColors.surfaceContainerLow, borderRadius: BorderRadius.circular(14)), child: Row(children: [const Text('4.9', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: AppColors.primary)), const SizedBox(width: 16), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(color: AppColors.surfaceContainerLow, borderRadius: BorderRadius.circular(14)), child: Row(children: [const Text('4.9', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: AppColors.primary)), const SizedBox(width: 16), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [
         _starRow(4.9), const SizedBox(height: 4), Text('${_reviews.length} تقييم', style: const TextStyle(fontSize: 12, color: AppColors.grey)),
         const SizedBox(height: 8),
         _ratingBar('5 نجوم', 0.7), _ratingBar('4 نجوم', 0.2), _ratingBar('3 نجوم', 0.05), _ratingBar('2 نجوم', 0.03), _ratingBar('1 نجمة', 0.02),
@@ -178,7 +178,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> with SingleTi
   }
 
   Widget _ratingBar(String label, double ratio) {
-    return Padding(padding: const EdgeInsets.only(bottom: 2), child: Row(children: [SizedizedBox(width: 50, child: Text(label, style: const TextStyle(fontSize: 10))), Expanded(child: Container(height: 6, margin: const EdgeInsets.symmetric(horizontal: 6), decoration: BoxDecoration(color: AppColors.surfaceContainerLow, borderRadius: BorderRadius.circular(3)), child: FractionallySizedBox(alignment: Alignment.centerLeft, widthFactor: ratio, child: Container(decoration: BoxDecoration(color: AppColors.amber, borderRadius: BorderRadius.circular(3)))))), Text('${(ratio * 100).toInt()}%', style: const TextStyle(fontSize: 10))]));
+    return Padding(padding: const EdgeInsets.only(bottom: 2), child: Row(children: [SizedBox(width: 50, child: Text(label, style: const TextStyle(fontSize: 10))), Expanded(child: Container(height: 6, margin: const EdgeInsets.symmetric(horizontal: 6), decoration: BoxDecoration(color: AppColors.surfaceContainerLow, borderRadius: BorderRadius.circular(3)), child: FractionallySizedBox(alignment: Alignment.centerLeft, widthFactor: ratio, child: Container(decoration: BoxDecoration(color: AppColors.amber, borderRadius: BorderRadius.circular(3)))))), Text('${(ratio * 100).toInt()}%', style: const TextStyle(fontSize: 10))]));
   }
 
   Widget _sectionTitle(String title) => Padding(padding: const EdgeInsets.only(bottom: 8), child: Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)));

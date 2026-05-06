@@ -25,7 +25,7 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
   ];
 
   int _getCartCount() => _cart.values.fold(0, (a, b) => a + b);
-  int _getCartTotal() => _cart.entries.fold(0, (sum, e) => sum + (_meds.firstWhere((m) => m['id'] == e.key)['price'] * e.value));
+  num _getCartTotal().toInt() => _cart.entries.fold(0, (sum, e) => sum + (_meds.firstWhere((m) => m['id'] == e.key)['price'] * e.value));
 
   void _checkout() {
     if (_cart.isEmpty) {
@@ -36,7 +36,7 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
       context,
       MaterialPageRoute(
         builder: (_) => DeliveryOptionsScreen(
-          orderAmount: _getCartTotal().toDouble(),
+          orderAmount: _getCartTotal().toInt().toDouble(),
         ),
       ),
     ).then((result) {
@@ -90,7 +90,7 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
         })),
         if (_getCartCount() > 0)
           Container(padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 8, offset: const Offset(0, -2))]), child: SafeArea(child: Row(children: [
-            Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('${_getCartCount()} منتجات', style: const TextStyle(fontSize: 11, color: AppColors.grey)), Text('${_getCartTotal()} ر.ي', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18))])),
+            Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('${_getCartCount()} منتجات', style: const TextStyle(fontSize: 11, color: AppColors.grey)), Text('${_getCartTotal().toInt()} ر.ي', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18))])),
             SizedBox(width: 160, height: 48, child: ElevatedButton.icon(onPressed: _checkout, icon: const Icon(Icons.delivery_dining), label: const Text('إتمام الطلب', style: TextStyle(fontSize: 14)), style: ElevatedButton.styleFrom(backgroundColor: AppColors.success, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))),
           ]))),
       ]),
