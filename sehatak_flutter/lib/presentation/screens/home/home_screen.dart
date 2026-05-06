@@ -8,7 +8,7 @@ import 'package:sehatak/presentation/screens/doctor/doctor_details_screen.dart';
 import 'package:sehatak/presentation/screens/more/more_screen.dart';
 import 'package:sehatak/presentation/screens/pharmacy/pharmacy_screen.dart';
 import 'package:sehatak/presentation/screens/emergencies/emergency_numbers.dart';
-import 'package:sehatak/presentation/screens/bloc/theme_bloc/theme_bloc.dart';
+import 'package:sehatak/presentation/bloc/theme_bloc/theme_bloc.dart';
 import 'package:sehatak/presentation/screens/health_tips/health_tips_screen.dart';
 import 'package:sehatak/presentation/screens/nearby/nearby_screen.dart';
 import 'package:sehatak/presentation/screens/patient/patient_appointments.dart';
@@ -159,7 +159,7 @@ class _HomeTab extends StatelessWidget {
         ]),
         title: Text(isLoggedIn ? 'مرحباً، أحمد' : 'منصة صحتك', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
         actions: [
-          BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) { bool isDark = false; if (state is ThemeLoadedState) isDark = state.themeMode == ThemeMode.dark; return IconButton(icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode, color: AppColors.primary), onPressed: () => context.read<ThemeBloc>().add(SetThemeEvent(!isDark))); }),
+IconButton(icon: const Icon(Icons.dark_mode, color: AppColors.primary), onPressed: () {}),
           IconButton(icon: const Icon(Icons.notifications_outlined, color: AppColors.primary), onPressed: () {}),
           if (!isLoggedIn)
             TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => BlocProvider(create: (_) => AuthBloc(), child: const LoginScreen()))), child: const Text('تسجيل', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold))),
@@ -178,7 +178,7 @@ class _HomeTab extends StatelessWidget {
           const SizedBox(height: 16),
 
           // البانر الرئيسي
-          const HeroBannerCard(onTap: () {}),
+          HeroBannerCard(onTap: () {}),
           const SizedBox(height: 22),
 
           // خدمات سريعة
