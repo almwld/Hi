@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sehatak/core/constants/app_colors.dart';
+import 'package:sehatak/core/services/api_service.dart';
 import 'package:sehatak/presentation/widgets/common_widgets.dart';
 import 'package:sehatak/presentation/screens/doctor/doctors_list_screen.dart';
 import 'package:sehatak/presentation/screens/doctor/doctor_details_screen.dart';
@@ -20,6 +21,8 @@ import 'package:sehatak/presentation/screens/cart/cart_screen.dart';
 import 'package:sehatak/presentation/screens/lab/labs_list_screen.dart';
 import 'package:sehatak/presentation/screens/payment/payment_methods_screen.dart';
 import 'package:sehatak/presentation/screens/health_community/health_community_screen.dart';
+import 'package:sehatak/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:sehatak/presentation/screens/auth/login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,6 +37,20 @@ class _HomeScreenState extends State<HomeScreen> {
     _HomeTab(), DoctorsListScreen(), PharmacyScreen(),
     ChatScreen(), PatientAppointments(), PatientDashboard(), MoreScreen(),
   ];
+
+  // دالة فحص التسجيل
+  void _requireAuth(VoidCallback action) {
+    if (ApiService.isLoggedIn) {
+      action();
+    } else {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (_) => BlocProvider(
+          create: (_) => AuthBloc(),
+          child: const LoginScreen(),
+        ),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,20 +78,56 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _navItem(int index, IconData icon, String label) {
     final selected = _currentIndex == index;
     final color = selected ? AppColors.primary : AppColors.grey;
-    return GestureDetector(onTap: () => setState(() => _currentIndex = index), child: SizedBox(width: 48, child: Column(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.center, children: [if (selected) Container(width: 32, height: 3, margin: const EdgeInsets.only(bottom: 4), decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(2))), Icon(icon, color: color, size: 22), const SizedBox(height: 2), Text(label, style: TextStyle(fontSize: 9, fontWeight: selected ? FontWeight.w600 : FontWeight.normal, color: color))])));
+    return GestureDetector(
+      onTap: () {
+        // فحص التسجيل للتبويبات الحساسة
+        if (index == 3 || index == 4 || index == 5) {
+          _requireAuth(() => setState(() => _currentIndex = index));
+        } else {
+          setState(() => _currentIndex = index);
+        }
+      },
+      child: SizedBox(width: 48, child: Column(mainAxisSize: MainAxisSize.min, mainAxisAlignment: MainAxisAlignment.center, children: [
+        if (selected) Container(width: 32, height: 3, margin: const EdgeInsets.only(bottom: 4), decoration: BoxDecoration(color: AppColors.primary, borderRadius: BorderRadius.circular(2))),
+        Icon(icon, color: color, size: 22),
+        const SizedBox(height: 2),
+        Text(label, style: TextStyle(fontSize: 9, fontWeight: selected ? FontWeight.w600 : FontWeight.normal, color: color)),
+      ])),
+    );
   }
 
   Widget _centerChatButton() {
     final selected = _currentIndex == 3;
-    return GestureDetector(onTap: () => setState(() => _currentIndex = 3), child: Column(mainAxisSize: MainAxisSize.min, children: [Container(width: 50, height: 50, margin: const EdgeInsets.only(bottom: 2), decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppColors.primary, AppColors.primaryDark]), shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.primary.withOpacity(0.45), blurRadius: 14)]), child: const Icon(Icons.chat_rounded, color: Colors.white, size: 26)), Text('الدردشة', style: TextStyle(fontSize: 8, fontWeight: selected ? FontWeight.w600 : FontWeight.normal, color: selected ? AppColors.primary : AppColors.grey))]));
+    return GestureDetector(
+      onTap: () => _requireAuth(() => setState(() => _currentIndex = 3)),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Container(width: 50, height: 50, margin: const EdgeInsets.only(bottom: 2), decoration: BoxDecoration(gradient: const LinearGradient(colors: [AppColors.primary, AppColors.primaryDark]), shape: BoxShape.circle, boxShadow: [BoxShadow(color: AppColors.primary.withOpacity(0.45), blurRadius: 14)]), child: const Icon(Icons.chat_rounded, color: Colors.white, size: 26)),
+        Text('الدردشة', style: TextStyle(fontSize: 8, fontWeight: selected ? FontWeight.w600 : FontWeight.normal, color: selected ? AppColors.primary : AppColors.grey)),
+      ]),
+    );
   }
 }
 
 class _HomeTab extends StatelessWidget {
   const _HomeTab();
 
+  void _requireAuth(BuildContext context, VoidCallback action) {
+    if (ApiService.isLoggedIn) {
+      action();
+    } else {
+      Navigator.push(context, MaterialPageRoute(
+        builder: (_) => BlocProvider(
+          create: (_) => AuthBloc(),
+          child: const LoginScreen(),
+        ),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isLoggedIn = ApiService.isLoggedIn;
+    
     return Scaffold(
       appBar: AppBar(
         leading: Row(mainAxisSize: MainAxisSize.min, children: [
@@ -88,15 +141,42 @@ class _HomeTab extends StatelessWidget {
             onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SmartClinicScreen())), tooltip: 'المساعد الذكي',
           ),
         ]),
-        title: const Text('مرحباً، أحمد', style: TextStyle(fontSize: 16)),
+        title: Text(isLoggedIn ? 'مرحباً، أحمد' : 'منصة صحتك', style: const TextStyle(fontSize: 16)),
         actions: [
           BlocBuilder<ThemeBloc, ThemeState>(builder: (context, state) { bool isDark = false; if (state is ThemeLoadedState) isDark = state.themeMode == ThemeMode.dark; return IconButton(icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode), onPressed: () => context.read<ThemeBloc>().add(SetThemeEvent(!isDark))); }),
           IconButton(icon: const Icon(Icons.notifications_outlined), onPressed: () {}),
+          if (!isLoggedIn)
+            TextButton(
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => BlocProvider(create: (_) => AuthBloc(), child: const LoginScreen()))),
+              child: const Text('تسجيل', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            ),
         ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(14),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          // ========== شريط تسجيل الدخول (يختفي تلقائي بعد التسجيل) ==========
+          if (!isLoggedIn)
+            Container(
+              margin: const EdgeInsets.only(bottom: 14),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(colors: [AppColors.primary, AppColors.primaryDark]),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(children: [
+                const Icon(Icons.info, color: Colors.white, size: 22),
+                const SizedBox(width: 10),
+                const Expanded(child: Text('سجل دخولك للاستفادة من جميع الخدمات الطبية', style: TextStyle(color: Colors.white, fontSize: 13))),
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => BlocProvider(create: (_) => AuthBloc(), child: const LoginScreen()))),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.white, foregroundColor: AppColors.primary, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
+                  child: const Text('تسجيل', style: TextStyle(fontWeight: FontWeight.bold)),
+                ),
+              ]),
+            ),
+          
           const CustomSearchBar(hint: 'بحث عن خدمات، أطباء، مقالات...'),
           const SizedBox(height: 16),
           Container(width: double.infinity, padding: const EdgeInsets.all(20), decoration: BoxDecoration(gradient: const LinearGradient(colors: [Color(0xFF00796B), Color(0xFF004D40)]), borderRadius: BorderRadius.circular(16)), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -111,11 +191,10 @@ class _HomeTab extends StatelessWidget {
             _quickService(context, Icons.local_pharmacy, 'الصيدلية', AppColors.success, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const PharmacyScreen()))),
             _quickService(context, Icons.emergency, 'الطوارئ', AppColors.error, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const EmergencyNumbers()))),
             _quickService(context, Icons.near_me, 'بالقرب منك', AppColors.teal, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const NearbyScreen()))),
-            _quickService(context, Icons.shopping_cart, 'السلة', AppColors.orange, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CartScreen()))),
-            _quickService(context, Icons.science, 'التحاليل', AppColors.purple, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LabsListScreen()))),
+            _quickService(context, Icons.shopping_cart, 'السلة', AppColors.orange, () => _requireAuth(context, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CartScreen())))),
+            _quickService(context, Icons.science, 'التحاليل', AppColors.purple, () => _requireAuth(context, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const LabsListScreen())))),
           ]),
           const SizedBox(height: 22),
-          // ========== أفضل الأطباء - كل طبيب يفتح صفحة التفاصيل ==========
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text('أفضل الأطباء', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)), TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const DoctorsListScreen())), child: const Text('عرض الكل ›'))]),
           const SizedBox(height: 8),
           DoctorCard(name: 'د. علي المولد', specialty: 'استشاري باطنية وأطفال', experience: 'خبرة 20+ سنة', rating: 4.9, reviews: 328, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DoctorDetailsScreen(doctorId: '1')))),
@@ -124,19 +203,18 @@ class _HomeTab extends StatelessWidget {
           const SizedBox(height: 6),
           DoctorCard(name: 'د. عائشة ملك', specialty: 'طبيبة جلدية', experience: 'خبرة 6+ سنوات', rating: 4.9, reviews: 189, onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DoctorDetailsScreen(doctorId: '9')))),
           const SizedBox(height: 22),
-
-          // ========== منشورات مجتمع صحتك ==========
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text('مجتمع صحتك', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)), TextButton(onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthCommunityScreen())), child: const Text('عرض الكل ›'))]),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text('مجتمع صحتك', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)), TextButton(onPressed: () => _requireAuth(context, () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HealthCommunityScreen()))), child: const Text('عرض الكل ›'))]),
           const SizedBox(height: 8),
           _postCard('أم محمد', '👩', 'سكري الأطفال', 'ابني عمره 8 سنوات وشُخص بالسكري. أي نصائح للتعامل معه في المدرسة؟', 'منذ 2 ساعة', 24, 45, AppColors.error, () {}),
           _postCard('د. حسن رضا', '👨‍⚕️', 'نصيحة طبية', '🫀 تذكير: قياس ضغط الدم بانتظام من أهم عادات الوقاية. المعدل الطبيعي أقل من 120/80.', 'منذ 5 ساعات', 18, 92, AppColors.success, () {}),
           _postCard('سارة', '👩', 'الحمل والولادة', 'أنا في الشهر السابع وأعاني من حرقة المعدة باستمرار. أي حلول طبيعية؟', 'منذ 8 ساعات', 35, 67, AppColors.pink, () {}),
-          const SizedBox(height: 22),
-
-          Text('السجل الطبي', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)), const SizedBox(height: 8),
-          _historyItem(context, 'ارتفاع ضغط الدم', 'تم التشخيص: 15 مارس 2023', AppColors.error),
-          _historyItem(context, 'الربو', 'تم التشخيص: 10 يناير 2021', AppColors.warning),
-          _historyItem(context, 'التهاب المعدة', 'تم التشخيص: 5 أغسطس 2019', AppColors.info),
+          if (isLoggedIn) ...[
+            const SizedBox(height: 22),
+            Text('السجل الطبي', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)), const SizedBox(height: 8),
+            _historyItem(context, 'ارتفاع ضغط الدم', 'تم التشخيص: 15 مارس 2023', AppColors.error),
+            _historyItem(context, 'الربو', 'تم التشخيص: 10 يناير 2021', AppColors.warning),
+            _historyItem(context, 'التهاب المعدة', 'تم التشخيص: 5 أغسطس 2019', AppColors.info),
+          ],
           const SizedBox(height: 80),
         ]),
       ),
