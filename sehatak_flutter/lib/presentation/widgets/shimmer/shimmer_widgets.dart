@@ -93,7 +93,7 @@ class DoctorsShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      const SizedBox(height: 50, child: ShimmerContainer(margin: EdgeInsets.all(10), borderRadius: 12)),
+      SizedBox(height: 50, child: Padding(padding: EdgeInsets.all(10), child: ShimmerContainer( borderRadius: 12))),
       const SizedBox(height: 10),
       Expanded(child: GridView.builder(padding: const EdgeInsets.all(10), gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.75, crossAxisSpacing: 8, mainAxisSpacing: 8), itemCount: 6, itemBuilder: (_, __) => Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(14)), child: const Column(children: [
         ShimmerContainer(width: 60, height: 60, borderRadius: 30),
@@ -116,7 +116,7 @@ class PharmacyShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       const Padding(padding: EdgeInsets.all(10), child: ShimmerContainer(height: 44, borderRadius: 12)),
-      const SizedBox(height: 40, child: Row(children: [SizedBox(width: 10)] + List.generate(6, (_) => const Padding(padding: EdgeInsets.only(right: 6), child: ShimmerContainer(width: 70, height: 32, borderRadius: 16))))),
+      SizedBox(height: 40, child: Row(children: [SizedBox(width: 10)] + List.generate(6, (_) => const Padding(padding: EdgeInsets.only(right: 6), child: ShimmerContainer(width: 70, height: 32, borderRadius: 16))))),
       Expanded(child: GridView.builder(padding: const EdgeInsets.all(10), gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.68, crossAxisSpacing: 8, mainAxisSpacing: 8), itemCount: 6, itemBuilder: (_, __) => Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(14)), child: const Column(children: [
         ShimmerContainer(width: 40, height: 40, borderRadius: 20),
         SizedBox(height: 6),
@@ -139,7 +139,7 @@ class AppointmentsShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      const SizedBox(height: 50, child: ShimmerContainer(margin: EdgeInsets.all(10), borderRadius: 12)),
+      SizedBox(height: 50, child: Padding(padding: EdgeInsets.all(10), child: ShimmerContainer( borderRadius: 12))),
       Expanded(child: ListView.builder(padding: const EdgeInsets.all(10), itemCount: 4, itemBuilder: (_, __) => Container(margin: const EdgeInsets.only(bottom: 10), padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(14)), child: const Column(children: [
         Row(children: [ShimmerContainer(width: 48, height: 48, borderRadius: 24), SizedBox(width: 10), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [ShimmerContainer(height: 14, width: 120), SizedBox(height: 4), ShimmerContainer(height: 10, width: 80)]))]),
         SizedBox(height: 10),

@@ -126,23 +126,28 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> with SingleTi
   Widget _reviewsTab() {
     return SingleChildScrollView(padding: const EdgeInsets.all(14), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       _sectionTitle('تقييم الطبيب'),
-      Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(color: AppColors.surfaceContainerLow, borderRadius: BorderRadius.circular(14)), child: Row(children: [const Text('4.9', style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: AppColors.primary)), const SizedBox(width: 16), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [
-        _starRow(4.9), const SizedBox(height: 4), Text('${_reviews.length} تقييم', style: const TextStyle(fontSize: 12, color: AppColors.grey)),
-        const SizedBox(height: 8),
-        _ratingBar('5 نجوم', 0.7), _ratingBar('4 نجوم', 0.2), _ratingBar('3 نجوم', 0.05), _ratingBar('2 نجوم', 0.03), _ratingBar('1 نجمة', 0.02),
-      ]))]),
+      Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(color: AppColors.surfaceContainerLow, borderRadius: BorderRadius.circular(14)),
+        child: Row(children: [
+          const Text("4.9", style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: AppColors.primary)),
+          const SizedBox(width: 16),
+          Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            _starRow(4.9),
+            const SizedBox(height: 4),
+            Text("${_reviews.length} تقييم", style: const TextStyle(fontSize: 12, color: AppColors.grey)),
+            const SizedBox(height: 8),
+            _ratingBar("5 نجوم", 0.7), _ratingBar("4 نجوم", 0.2), _ratingBar("3 نجوم", 0.05), _ratingBar("2 نجوم", 0.03), _ratingBar("1 نجمة", 0.02),
+          ])),
+        ])),
       const SizedBox(height: 16),
-      _sectionTitle('أضف تقييمك'),
+      _sectionTitle("أضف تقييمك"),
       Row(mainAxisAlignment: MainAxisAlignment.center, children: List.generate(5, (i) => IconButton(icon: Icon(i < _userRating ? Icons.star : Icons.star_border, color: AppColors.amber, size: 36), onPressed: () => setState(() => _userRating = i + 1.0)))),
-      TextField(controller: _reviewCtrl, maxLines: 3, decoration: InputDecoration(hintText: 'اكتب تقييمك...', border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)))),
+      TextField(controller: _reviewCtrl, maxLines: 3, decoration: InputDecoration(hintText: "اكتب تقييمك...", border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)))),
       const SizedBox(height: 8),
-      SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () { if (_reviewCtrl.text.isNotEmpty) { _reviewCtrl.clear(); setState(() => _userRating = 0); ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('تم إرسال تقييمك، شكراً!'), backgroundColor: AppColors.success)); } }, style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, padding: const EdgeInsets.symmetric(vertical: 12), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))), child: const Text('إرسال التقييم'))),
+      SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () { if (_reviewCtrl.text.isNotEmpty) { _reviewCtrl.clear(); setState(() => _userRating = 0); ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("تم إرسال تقييمك، شكراً!"), backgroundColor: AppColors.success)); } }, style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, padding: const EdgeInsets.symmetric(vertical: 12), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))), child: const Text("إرسال التقييم"))),
       const SizedBox(height: 16),
-      _sectionTitle('آخر التقييمات'),
-      ..._reviews.map((r) => Container(margin: const EdgeInsets.only(bottom: 8), padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 4)]), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(children: [CircleAvatar(radius: 18, backgroundColor: AppColors.primary.withOpacity(0.1), child: Text(r['user'][0], style: const TextStyle(fontWeight: FontWeight.bold))), const SizedBox(width: 8), Text(r['user'], style: const TextStyle(fontWeight: FontWeight.bold)), const Spacer(), _starRow(r['rating']), const SizedBox(width: 6), Text(r['date'], style: const TextStyle(fontSize: 10, color: AppColors.grey))]),
-        const SizedBox(height: 6), Text(r['comment'], style: const TextStyle(fontSize: 12)),
-      ]))),
+      _sectionTitle("آخر التقييمات"),
     ]));
   }
 

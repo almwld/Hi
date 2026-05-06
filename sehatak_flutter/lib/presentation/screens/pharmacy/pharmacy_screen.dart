@@ -25,7 +25,7 @@ class _PharmacyScreenState extends State<PharmacyScreen> {
   ];
 
   int _getCartCount() => _cart.values.fold(0, (a, b) => a + b);
-  num _getCartTotal().toInt() => _cart.entries.fold(0, (sum, e) => sum + (_meds.firstWhere((m) => m['id'] == e.key)['price'] * e.value));
+  int _getCartTotal() => _cart.entries.fold(0, (sum, e) => sum + (_meds.firstWhere((m) => m['id'] == e.key)['price'] * e.value));
 
   void _checkout() {
     if (_cart.isEmpty) {
