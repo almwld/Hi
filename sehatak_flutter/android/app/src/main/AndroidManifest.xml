@@ -17,7 +17,7 @@
     <application
         android:label="صحتك"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/launcher_icon_sehatak"
         android:allowBackup="true"
         android:usesCleartextTraffic="true">
 
