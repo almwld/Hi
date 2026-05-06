@@ -1,0 +1,673 @@
+/**
+ * ============================================
+ * routes/auth.js - نظام المصادقة والتسجيل
+ * ============================================
+ *
+ * نظام المصادقة باستخدام JWT
+ * تسجيل الدخول والتحقق وإنشاء الجلسات
+ *
+ * @author Sehatak Team
+ * @version 2.0.0
+ */
+
+const express = require('express');
+const router = express.Router();
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const { v4: uuidv4 } = require('uuid');
+
+// إعدادات JWT
+const JWT_SECRET = process.env.JWT_SECRET || 'sehatak_jwt_secret_2024_secure_key';
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
+const REFRESH_TOKEN_EXPIRES_IN = '30d';
+
+// ============================================
+// تخزين مؤقت (في الإنتاج يُستبدل بـ PostgreSQL)
+const users = new Map();
+const refreshTokens = new Map();
+
+// بيانات تجريبية لأطباء
+const demoDoctors = [
+    {
+        id: 'doctor-1',
+        name: 'د. أحمد محمد العواضي',
+        specialty: 'طب القلب والأوعية الدموية',
+        city: 'صنعاء',
+        rating: 4.8,
+        consultationPrice: 5000,
+        avatar: null,
+        phone: '967771234567',
+        email: 'doctor1@sehatak.com'
+    },
+    {
+        id: 'doctor-2',
+        name: 'د. فاطمة علي新媒体',
+        specialty: 'طب الأطفال',
+        city: 'عدن',
+        rating: 4.9,
+        consultationPrice: 4000,
+        avatar: null,
+        phone: '967772234567',
+        email: 'doctor2@sehatak.com'
+    },
+    {
+        id: 'doctor-3',
+        name: 'د. خالد عبدالله الحميدي',
+        specialty: 'الطب العام',
+        city: 'تعز',
+        rating: 4.7,
+        consultationPrice: 3000,
+        avatar: null,
+        phone: '967773234567',
+        email: 'doctor3@sehatak.com'
+    }
+];
+
+// ============================================
+// دوال مساعدة
+// ============================================
+
+/**
+ * تنسيق رقم الهاتف اليمني
+ */
+function normalizePhoneNumber(phone) {
+    let cleaned = phone.replace(/[\s\-]/g, '');
+    if (!cleaned.startsWith('967') && !cleaned.startsWith('+967')) {
+        if (cleaned.startsWith('7')) {
+            cleaned = '967' + cleaned;
+        }
+    }
+    return cleaned;
+}
+
+/**
+ * توليد Access Token
+ */
+function generateAccessToken(user) {
+    return jwt.sign(
+        {
+            userId: user.id,
+            phone: user.phone,
+            role: user.role || 'patient',
+            type: 'access'
+        },
+        JWT_SECRET,
+        { expiresIn: JWT_EXPIRES_IN }
+    );
+}
+
+/**
+ * توليد Refresh Token
+ */
+function generateRefreshToken(user) {
+    const refreshToken = uuidv4();
+    refreshTokens.set(refreshToken, {
+        userId: user.id,
+        createdAt: Date.now(),
+        expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000 // 30 يوم
+    });
+    return refreshToken;
+}
+
+/**
+ * إنشاء بيانات المستخدم
+ */
+function createUserObject(user) {
+    return {
+        id: user.id,
+        phone: user.phone,
+        name: user.name || null,
+        email: user.email || null,
+        role: user.role || 'patient',
+        avatar: user.avatar || null,
+        city: user.city || null,
+        dateOfBirth: user.dateOfBirth || null,
+        gender: user.gender || null,
+        bloodType: user.bloodType || null,
+        allergies: user.allergies || [],
+        chronicDiseases: user.chronicDiseases || [],
+        createdAt: user.createdAt,
+        isComplete: !!(user.name && user.email)
+    };
+}
+
+// ============================================
+// Routes
+// ============================================
+
+/**
+ * POST /api/auth/register
+ * تسجيل مستخدم جديد
+ */
+router.post('/register', async (req, res) => {
+    try {
+        const { phone, name, email } = req.body;
+
+        // التحقق من البيانات المطلوبة
+        if (!phone) {
+            return res.status(400).json({
+                success: false,
+                error: 'رقم الهاتف مطلوب',
+                code: 'PHONE_REQUIRED'
+            });
+        }
+
+        // تنسيق رقم الهاتف
+        const normalizedPhone = normalizePhoneNumber(phone);
+
+        // التحقق من وجود المستخدم
+        for (const [id, user] of users) {
+            if (user.phone === normalizedPhone) {
+                return res.status(400).json({
+                    success: false,
+                    error: 'هذا الرقم مسجل بالفعل',
+                    code: 'PHONE_EXISTS'
+                });
+            }
+        }
+
+        // إنشاء مستخدم جديد
+        const userId = uuidv4();
+        const newUser = {
+            id: userId,
+            phone: normalizedPhone,
+            name: name || null,
+            email: email || null,
+            role: 'patient',
+            avatar: null,
+            city: null,
+            dateOfBirth: null,
+            gender: null,
+            bloodType: null,
+            allergies: [],
+            chronicDiseases: [],
+            createdAt: Date.now(),
+            updatedAt: Date.now()
+        };
+
+        users.set(userId, newUser);
+
+        // توليد التوكن
+        const accessToken = generateAccessToken(newUser);
+        const refreshToken = generateRefreshToken(newUser);
+
+        res.status(201).json({
+            success: true,
+            message: 'تم التسجيل بنجاح',
+            user: createUserObject(newUser),
+            accessToken,
+            refreshToken
+        });
+
+    } catch (error) {
+        console.error('[Auth Register] خطأ:', error);
+        res.status(500).json({
+            success: false,
+            error: 'حدث خطأ أثناء التسجيل',
+            code: 'SERVER_ERROR'
+        });
+    }
+});
+
+/**
+ * POST /api/auth/login
+ * تسجيل الدخول - المرحلة الأولى (إرسال OTP)
+ */
+router.post('/login/send-otp', async (req, res) => {
+    try {
+        const { phone } = req.body;
+
+        if (!phone) {
+            return res.status(400).json({
+                success: false,
+                error: 'رقم الهاتف مطلوب',
+                code: 'PHONE_REQUIRED'
+            });
+        }
+
+        const normalizedPhone = normalizePhoneNumber(phone);
+
+        // البحث عن المستخدم
+        let existingUser = null;
+        for (const [id, user] of users) {
+            if (user.phone === normalizedPhone) {
+                existingUser = user;
+                break;
+            }
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'سيتم إرسال رمز التحقق',
+            userExists: !!existingUser,
+            phone: normalizedPhone
+        });
+
+    } catch (error) {
+        console.error('[Auth Login Send OTP] خطأ:', error);
+        res.status(500).json({
+            success: false,
+            error: 'حدث خطأ',
+            code: 'SERVER_ERROR'
+        });
+    }
+});
+
+/**
+ * POST /api/auth/login/verify
+ * تسجيل الدخول - المرحلة الثانية (التحقق من OTP)
+ */
+router.post('/login/verify', async (req, res) => {
+    try {
+        const { phone, otp, tempToken } = req.body;
+
+        if (!phone || !otp) {
+            return res.status(400).json({
+                success: false,
+                error: 'رقم الهاتف ورمز التحقق مطلوبان',
+                code: 'MISSING_FIELDS'
+            });
+        }
+
+        const normalizedPhone = normalizePhoneNumber(phone);
+
+        // البحث عن المستخدم
+        let existingUser = null;
+        for (const [id, user] of users) {
+            if (user.phone === normalizedPhone) {
+                existingUser = user;
+                break;
+            }
+        }
+
+        // في الإنتاج، تحقق من OTP الفعلي
+        // هنا نفترض أن OTP صحيح (للاختبار)
+        const isValidOTP = otp.length === 6;
+
+        if (!isValidOTP) {
+            return res.status(400).json({
+                success: false,
+                error: 'رمز التحقق غير صحيح',
+                code: 'INVALID_OTP'
+            });
+        }
+
+        // إنشاء المستخدم إذا لم يكن موجوداً
+        if (!existingUser) {
+            const userId = uuidv4();
+            existingUser = {
+                id: userId,
+                phone: normalizedPhone,
+                name: null,
+                email: null,
+                role: 'patient',
+                avatar: null,
+                city: null,
+                dateOfBirth: null,
+                gender: null,
+                bloodType: null,
+                allergies: [],
+                chronicDiseases: [],
+                createdAt: Date.now(),
+                updatedAt: Date.now()
+            };
+            users.set(userId, existingUser);
+        }
+
+        // توليد التوكن
+        const accessToken = generateAccessToken(existingUser);
+        const refreshToken = generateRefreshToken(existingUser);
+
+        res.status(200).json({
+            success: true,
+            message: 'تم تسجيل الدخول بنجاح',
+            user: createUserObject(existingUser),
+            accessToken,
+            refreshToken,
+            isNewUser: !existingUser.name
+        });
+
+    } catch (error) {
+        console.error('[Auth Login Verify] خطأ:', error);
+        res.status(500).json({
+            success: false,
+            error: 'حدث خطأ أثناء تسجيل الدخول',
+            code: 'SERVER_ERROR'
+        });
+    }
+});
+
+/**
+ * POST /api/auth/refresh
+ * تجديد Access Token
+ */
+router.post('/refresh', (req, res) => {
+    try {
+        const { refreshToken } = req.body;
+
+        if (!refreshToken) {
+            return res.status(400).json({
+                success: false,
+                error: 'Refresh Token مطلوب',
+                code: 'TOKEN_REQUIRED'
+            });
+        }
+
+        const tokenData = refreshTokens.get(refreshToken);
+
+        if (!tokenData) {
+            return res.status(401).json({
+                success: false,
+                error: 'الرمز غير صالح',
+                code: 'INVALID_TOKEN'
+            });
+        }
+
+        // التحقق من انتهاء الصلاحية
+        if (Date.now() > tokenData.expiresAt) {
+            refreshTokens.delete(refreshToken);
+            return res.status(401).json({
+                success: false,
+                error: 'انتهت صلاحية الرمز',
+                code: 'TOKEN_EXPIRED'
+            });
+        }
+
+        // جلب المستخدم
+        const user = users.get(tokenData.userId);
+
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                error: 'المستخدم غير موجود',
+                code: 'USER_NOT_FOUND'
+            });
+        }
+
+        // توليد Access Token جديد
+        const newAccessToken = generateAccessToken(user);
+
+        res.status(200).json({
+            success: true,
+            accessToken: newAccessToken
+        });
+
+    } catch (error) {
+        console.error('[Auth Refresh] خطأ:', error);
+        res.status(500).json({
+            success: false,
+            error: 'حدث خطأ',
+            code: 'SERVER_ERROR'
+        });
+    }
+});
+
+/**
+ * GET /api/auth/profile
+ * جلب الملف الشخصي
+ */
+router.get('/profile', authenticateToken, (req, res) => {
+    try {
+        const user = users.get(req.userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                error: 'المستخدم غير موجود',
+                code: 'USER_NOT_FOUND'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            user: createUserObject(user)
+        });
+
+    } catch (error) {
+        console.error('[Auth Profile] خطأ:', error);
+        res.status(500).json({
+            success: false,
+            error: 'حدث خطأ',
+            code: 'SERVER_ERROR'
+        });
+    }
+});
+
+/**
+ * PUT /api/auth/profile
+ * تحديث الملف الشخصي
+ */
+router.put('/profile', authenticateToken, async (req, res) => {
+    try {
+        const { name, email, city, dateOfBirth, gender, bloodType, allergies, chronicDiseases } = req.body;
+
+        const user = users.get(req.userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                error: 'المستخدم غير موجود',
+                code: 'USER_NOT_FOUND'
+            });
+        }
+
+        // تحديث البيانات
+        if (name !== undefined) user.name = name;
+        if (email !== undefined) user.email = email;
+        if (city !== undefined) user.city = city;
+        if (dateOfBirth !== undefined) user.dateOfBirth = dateOfBirth;
+        if (gender !== undefined) user.gender = gender;
+        if (bloodType !== undefined) user.bloodType = bloodType;
+        if (allergies !== undefined) user.allergies = allergies;
+        if (chronicDiseases !== undefined) user.chronicDiseases = chronicDiseases;
+
+        user.updatedAt = Date.now();
+
+        res.status(200).json({
+            success: true,
+            message: 'تم تحديث الملف الشخصي',
+            user: createUserObject(user)
+        });
+
+    } catch (error) {
+        console.error('[Auth Update Profile] خطأ:', error);
+        res.status(500).json({
+            success: false,
+            error: 'حدث خطأ',
+            code: 'SERVER_ERROR'
+        });
+    }
+});
+
+/**
+ * PUT /api/auth/avatar
+ * تحديث صورة المستخدم
+ */
+router.put('/avatar', authenticateToken, (req, res) => {
+    try {
+        const { avatar } = req.body;
+
+        const user = users.get(req.userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                error: 'المستخدم غير موجود',
+                code: 'USER_NOT_FOUND'
+            });
+        }
+
+        user.avatar = avatar;
+        user.updatedAt = Date.now();
+
+        res.status(200).json({
+            success: true,
+            message: 'تم تحديث الصورة',
+            user: createUserObject(user)
+        });
+
+    } catch (error) {
+        console.error('[Auth Update Avatar] خطأ:', error);
+        res.status(500).json({
+            success: false,
+            error: 'حدث خطأ',
+            code: 'SERVER_ERROR'
+        });
+    }
+});
+
+/**
+ * POST /api/auth/logout
+ * تسجيل الخروج
+ */
+router.post('/logout', authenticateToken, (req, res) => {
+    try {
+        const { refreshToken } = req.body;
+
+        if (refreshToken) {
+            refreshTokens.delete(refreshToken);
+        }
+
+        res.status(200).json({
+            success: true,
+            message: 'تم تسجيل الخروج بنجاح'
+        });
+
+    } catch (error) {
+        console.error('[Auth Logout] خطأ:', error);
+        res.status(500).json({
+            success: false,
+            error: 'حدث خطأ',
+            code: 'SERVER_ERROR'
+        });
+    }
+});
+
+/**
+ * GET /api/auth/doctors
+ * جلب قائمة الأطباء
+ */
+router.get('/doctors', (req, res) => {
+    try {
+        const { city, specialty, search } = req.query;
+
+        let filteredDoctors = [...demoDoctors];
+
+        // تصفية حسب المدينة
+        if (city) {
+            filteredDoctors = filteredDoctors.filter(d =>
+                d.city.toLowerCase().includes(city.toLowerCase())
+            );
+        }
+
+        // تصفية حسب التخصص
+        if (specialty) {
+            filteredDoctors = filteredDoctors.filter(d =>
+                d.specialty.toLowerCase().includes(specialty.toLowerCase())
+            );
+        }
+
+        // البحث
+        if (search) {
+            const searchLower = search.toLowerCase();
+            filteredDoctors = filteredDoctors.filter(d =>
+                d.name.toLowerCase().includes(searchLower) ||
+                d.specialty.toLowerCase().includes(searchLower)
+            );
+        }
+
+        res.status(200).json({
+            success: true,
+            doctors: filteredDoctors,
+            total: filteredDoctors.length
+        });
+
+    } catch (error) {
+        console.error('[Auth Get Doctors] خطأ:', error);
+        res.status(500).json({
+            success: false,
+            error: 'حدث خطأ',
+            code: 'SERVER_ERROR'
+        });
+    }
+});
+
+/**
+ * GET /api/auth/doctors/:id
+ * جلب بيانات طبيب معين
+ */
+router.get('/doctors/:id', (req, res) => {
+    try {
+        const doctor = demoDoctors.find(d => d.id === req.params.id);
+
+        if (!doctor) {
+            return res.status(404).json({
+                success: false,
+                error: 'الطبيب غير موجود',
+                code: 'DOCTOR_NOT_FOUND'
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            doctor
+        });
+
+    } catch (error) {
+        console.error('[Auth Get Doctor] خطأ:', error);
+        res.status(500).json({
+            success: false,
+            error: 'حدث خطأ',
+            code: 'SERVER_ERROR'
+        });
+    }
+});
+
+// ============================================
+// Middleware
+// ============================================
+
+/**
+ * middleware للتحقق من التوكن
+ */
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({
+            success: false,
+            error: 'التوكن مطلوب',
+            code: 'TOKEN_REQUIRED'
+        });
+    }
+
+    try {
+        const token = authHeader.split(' ')[1];
+        const decoded = jwt.verify(token, JWT_SECRET);
+
+        if (decoded.type !== 'access') {
+            return res.status(401).json({
+                success: false,
+                error: 'نوع التوكن غير صحيح',
+                code: 'INVALID_TOKEN_TYPE'
+            });
+        }
+
+        req.userId = decoded.userId;
+        req.userRole = decoded.role;
+        next();
+    } catch (error) {
+        return res.status(401).json({
+            success: false,
+            error: 'التوكن غير صالح أو منتهي الصلاحية',
+            code: 'INVALID_TOKEN'
+        });
+    }
+}
+
+// ============================================
+// تصدير
+// ============================================
+
+module.exports = router;
+module.exports.authenticateToken = authenticateToken;
