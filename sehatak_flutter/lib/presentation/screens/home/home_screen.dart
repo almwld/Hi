@@ -15,6 +15,7 @@ import 'package:sehatak/presentation/screens/nearby/nearby_screen.dart';
 import 'package:sehatak/presentation/screens/patient/patient_appointments.dart';
 import 'package:sehatak/presentation/screens/patient/patient_dashboard.dart';
 import 'package:sehatak/presentation/screens/chat/chat_screen.dart';
+import 'package:sehatak/presentation/widgets/services_carousel.dart';
 import 'package:sehatak/presentation/screens/smart_clinic/smart_clinic_screen.dart';
 import 'package:sehatak/presentation/screens/cart/cart_screen.dart';
 import 'package:sehatak/presentation/screens/lab/labs_list_screen.dart';
@@ -180,6 +181,8 @@ IconButton(icon: const Icon(Icons.dark_mode, color: AppColors.primary), onPresse
 
           // البانر الرئيسي
           HeroBannerCard(onTap: () {}),
+          const SizedBox(height: 16),
+          const ServicesCarousel(),
           const SizedBox(height: 22),
 
           // خدمات سريعة
