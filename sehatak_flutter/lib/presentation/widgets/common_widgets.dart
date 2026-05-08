@@ -177,9 +177,9 @@ class LoginPromptBar extends StatelessWidget {
         ),
         const SizedBox(width: 12),
         const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text('مرحباً بك في منصة صحتك', textDirection: TextDirection.rtl, textDirection: TextDirection.rtl, style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
+          Text('مرحباً بك في منصة صحتك', textDirection: TextDirection.rtl, style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
           SizedBox(height: 2),
-          Text('سجل دخولك للاستفادة من جميع الخدمات', textDirection: TextDirection.rtl, textDirection: TextDirection.rtl, style: TextStyle(color: Colors.white70, fontSize: 12)),
+          Text('سجل دخولك للاستفادة من جميع الخدمات', textDirection: TextDirection.rtl, style: TextStyle(color: Colors.white70, fontSize: 12)),
         ])),
         ElevatedButton(
           onPressed: onTap,
