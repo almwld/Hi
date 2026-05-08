@@ -176,13 +176,15 @@ IconButton(icon: const Icon(Icons.dark_mode, color: AppColors.primary), onPresse
           const SizedBox(height: 14),
 
           // شريط البحث
+          const SizedBox(height: 16),
+          const ServicesCarousel(),
+          const SizedBox(height: 16),
           const CustomSearchBar(hint: 'بحث عن خدمات، أطباء، مقالات...'),
           const SizedBox(height: 16),
 
           // البانر الرئيسي
           HeroBannerCard(onTap: () {}),
           const SizedBox(height: 16),
-          const ServicesCarousel(),
           const SizedBox(height: 22),
 
           // خدمات سريعة
