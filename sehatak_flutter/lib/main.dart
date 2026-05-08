@@ -13,7 +13,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -25,10 +24,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             locale: const Locale('ar', 'SA'),
             supportedLocales: const [Locale('ar', 'SA')],
-            localizationsDelegates: const [
-              DefaultMaterialLocalizations.delegate,
-              DefaultWidgetsLocalizations.delegate,
-            ],
+            localizationsDelegates: const [DefaultMaterialLocalizations.delegate, DefaultWidgetsLocalizations.delegate],
             builder: (context, child) => Directionality(textDirection: TextDirection.rtl, child: child!),
             theme: ThemeManager.lightTheme,
             darkTheme: ThemeManager.darkTheme,

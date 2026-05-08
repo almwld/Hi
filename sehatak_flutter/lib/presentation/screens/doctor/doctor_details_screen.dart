@@ -76,7 +76,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> with SingleTi
         ),
 
         // ========== أزرار الإجراءات ==========
-        SliverToBoundsBox(
+        SliverToBoxAdapter(
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 10),
             color: isDark ? const Color(0xFF111D33) : AppColors.surfaceContainerLow,
