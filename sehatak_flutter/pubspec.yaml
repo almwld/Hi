@@ -53,8 +53,6 @@ flutter:
     - assets/images/placeholder.png
     - assets/icons/placeholder.png
     - assets/icons/app_icon.png
-    - assets/icons/sehatak_icon.png
-    - assets/icons/svg/
     - assets/fonts/
 
   fonts:
