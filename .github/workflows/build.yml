@@ -1,4 +1,5 @@
 name: 🚀 Build All - Flutter + Backend + AI
+
 on:
   push:
     branches: [ main ]
@@ -14,23 +15,42 @@ jobs:
       with: { distribution: 'temurin', java-version: '17' }
     - uses: subosito/flutter-action@v2
       with: { flutter-version: '3.16.0' }
+    
     - name: Move Flutter to root
       run: |
         shopt -s dotglob
         cp -r sehatak_flutter/* .
         cp -r sehatak_flutter/.[!.]* . 2>/dev/null || true
+    
     - run: flutter pub get
-    - run: flutter build apk --release --split-per-abi
+    
+    # ========== بناء APK بحجم أقل ==========
+    - name: Build APK (split + obfuscate + tree-shake)
+      run: |
+        flutter build apk --release \
+          --split-per-abi \
+          --obfuscate \
+          --split-debug-info=build/debug-info \
+          --no-tree-shake-icons
+    # ========================================
+    
     - uses: actions/upload-artifact@v4
-      with: { name: app-arm64-v8a, path: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk }
+      with:
+        name: app-arm64-v8a
+        path: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+    
     - uses: actions/upload-artifact@v4
-      with: { name: app-armeabi-v7a, path: build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk }
+      with:
+        name: app-armeabi-v7a
+        path: build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+    
     - uses: actions/upload-artifact@v4
-      with: { name: app-x86_64, path: build/app/outputs/flutter-apk/app-x86_64-release.apk }
+      with:
+        name: app-x86_64
+        path: build/app/outputs/flutter-apk/app-x86_64-release.apk
 
   ai:
     name: 🧠 AI Service
-    needs: flutter
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: ai_service } }
     steps:
@@ -42,7 +62,6 @@ jobs:
 
   backend:
     name: 🚀 Backend
-    needs: ai
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: backend } }
     services:
